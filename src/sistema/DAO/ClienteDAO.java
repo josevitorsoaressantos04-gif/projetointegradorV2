@@ -1,5 +1,4 @@
 package sistema.DAO;
-
 import sistema.conexao.ConexaoBanco;
 import sistema.model.Cliente;
 import java.sql.Connection;
@@ -21,25 +20,28 @@ public class ClienteDAO {
                 """;
 
         try (
-                Connection conexao = ConexaoBanco.conectar();
-                PreparedStatement stmt = conexao.prepareStatement(sql)
+                Connection conexao = ConexaoBanco.conectar()
         ) {
+            assert conexao != null;
+            try (PreparedStatement stmt =  conexao.prepareStatement(sql)
+            ) {
 
-            stmt.setString(1, cliente.getNome());
-            stmt.setString(2, cliente.getCpfCnpj());
-            stmt.setString(3, cliente.getTelefone());
-            stmt.setString(4, cliente.getEmail());
+                stmt.setString(1, cliente.getNome());
+                stmt.setString(2, cliente.getCpfCnpj());
+                stmt.setString(3, cliente.getTelefone());
+                stmt.setString(4, cliente.getEmail());
 
-            stmt.executeUpdate();
+                stmt.executeUpdate();
 
-            System.out.println("Cliente cadastrado com sucesso!");
+                System.out.println("Cliente cadastrado com sucesso!");
 
+            }
         } catch (SQLException erro) {
             throw new RuntimeException("Erro ao cadastrar cliente: " + erro.getMessage());
         }
     }
 
-    public void atualizarCliente(Cliente cliente) {
+    public void atualizarCliente( Cliente cliente) {
 
         String sql = """
                 UPDATE cliente
