@@ -1,6 +1,8 @@
 package sistema.view;
 
 import sistema.model.Usuario;
+import sistema.view.cadastros.*;
+import sistema.view.listagem.*;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;

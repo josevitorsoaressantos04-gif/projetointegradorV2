@@ -41,7 +41,7 @@ public class ProdutoDAO {
         String sql = """
                 SELECT id_produto, nome, descricao, valor_custo, valor_venda, estoque
                 FROM produto
-                ORDER BY nome
+                ORDER BY nome ASC
                 """;
 
         List<Produto> produtos = new ArrayList<>();

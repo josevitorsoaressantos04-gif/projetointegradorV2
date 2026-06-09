@@ -1,4 +1,4 @@
-package sistema.view;
+package sistema.view.listagem;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;

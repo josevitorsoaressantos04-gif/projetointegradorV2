@@ -7,51 +7,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UsuarioDAO {
 
-    public Usuario buscarPorLoginESenha(String login, String senha) {
-
-        String sql = """
-                SELECT id_usuario, nome, login, senha, data_cadastro
-                FROM usuario
-                WHERE login = ?
-                AND senha = ?
-                """;
-
-        try
-                (Connection conexao = ConexaoBanco.conectar()) {
-            PreparedStatement stmt = conexao.prepareStatement(sql);
-
-
-            stmt.setString(1, login);
-            stmt.setString(2, senha);
-
-            ResultSet resultado = stmt.executeQuery();
-
-            if (resultado.next()) {
-                Usuario usuario = new Usuario();
-
-                usuario.setIdUsuario(resultado.getInt("id_usuario"));
-                usuario.setNome(resultado.getString("nome"));
-                usuario.setLogin(resultado.getString("login"));
-                usuario.setSenha(resultado.getString("senha"));
-
-                if (resultado.getTimestamp("data_cadastro") != null) {
-                    usuario.setDataCadastro(resultado.getTimestamp("data_cadastro").toLocalDateTime());
-                }
-
-                return usuario;
-            }
-
-        } catch (SQLException erro) {
-            throw new RuntimeException("Erro ao buscar usuário: " + erro.getMessage());
-        }
-
-        return null;
-    }
-
-    public void cadastrarUsuario(Usuario usuario) {
+    public void cadastrar(Usuario usuario) {
 
         String sql = """
                 INSERT INTO usuario (
@@ -59,14 +20,15 @@ public class UsuarioDAO {
                     login,
                     senha,
                     data_cadastro
-                ) VALUES (?, ?, ?, NOW())
+                ) VALUES (
+                    ?, ?, ?, NOW()
+                )
                 """;
 
         try (
                 Connection conexao = ConexaoBanco.conectar();
                 PreparedStatement stmt = conexao.prepareStatement(sql)
         ) {
-
             stmt.setString(1, usuario.getNome());
             stmt.setString(2, usuario.getLogin());
             stmt.setString(3, usuario.getSenha());
@@ -74,7 +36,131 @@ public class UsuarioDAO {
             stmt.executeUpdate();
 
         } catch (SQLException erro) {
-            throw new RuntimeException("Erro ao cadastrar usuário: " + erro.getMessage());
+            throw new RuntimeException("Erro ao cadastrar usuario: " + erro.getMessage());
+        }
+    }
+
+    public List<Usuario> listar() {
+
+        String sql = """
+                SELECT
+                    id_usuario,
+                    nome,
+                    login,
+                    senha,
+                    data_cadastro
+                FROM usuario
+                ORDER BY nome
+                """;
+
+        List<Usuario> usuarios = new ArrayList<>();
+
+        try (
+                Connection conexao = ConexaoBanco.conectar();
+                PreparedStatement stmt = conexao.prepareStatement(sql);
+                ResultSet resultado = stmt.executeQuery()
+        ) {
+            while (resultado.next()) {
+
+                Usuario usuario = new Usuario();
+
+                usuario.setIdUsuario(resultado.getInt("id_usuario"));
+                usuario.setNome(resultado.getString("nome"));
+                usuario.setLogin(resultado.getString("login"));
+                usuario.setSenha(resultado.getString("senha"));
+                usuario.setDataCadastro(resultado.getTimestamp("data_cadastro").toLocalDateTime());
+
+                usuarios.add(usuario);
+            }
+
+        } catch (SQLException erro) {
+            throw new RuntimeException("Erro ao listar usuarios: " + erro.getMessage());
+        }
+
+        return usuarios;
+    }
+
+    public Usuario buscarPorLoginESenha(String login, String senha) {
+
+        String sql = """
+                SELECT
+                    id_usuario,
+                    nome,
+                    login,
+                    senha,
+                    data_cadastro
+                FROM usuario
+                WHERE login = ?
+                AND senha = ?
+                """;
+
+        try (
+                Connection conexao = ConexaoBanco.conectar();
+                PreparedStatement stmt = conexao.prepareStatement(sql)
+        ) {
+            stmt.setString(1, login);
+            stmt.setString(2, senha);
+
+            try (ResultSet resultado = stmt.executeQuery()) {
+
+                if (resultado.next()) {
+                    Usuario usuario = new Usuario();
+
+                    usuario.setIdUsuario(resultado.getInt("id_usuario"));
+                    usuario.setNome(resultado.getString("nome"));
+                    usuario.setLogin(resultado.getString("login"));
+                    usuario.setSenha(resultado.getString("senha"));
+                    usuario.setDataCadastro(resultado.getTimestamp("data_cadastro").toLocalDateTime());
+
+                    return usuario;
+                }
+            }
+
+        } catch (SQLException erro) {
+            throw new RuntimeException("Erro ao buscar usuario: " + erro.getMessage());
+        }
+
+        return null;
+    }
+
+    public void alterarSenha(int idUsuario, String novaSenha) {
+
+        String sql = """
+                UPDATE usuario
+                SET senha = ?
+                WHERE id_usuario = ?
+                """;
+
+        try (
+                Connection conexao = ConexaoBanco.conectar();
+                PreparedStatement stmt = conexao.prepareStatement(sql)
+        ) {
+            stmt.setString(1, novaSenha);
+            stmt.setInt(2, idUsuario);
+
+            stmt.executeUpdate();
+
+        } catch (SQLException erro) {
+            throw new RuntimeException("Erro ao alterar senha: " + erro.getMessage());
+        }
+    }
+
+    public void excluir(int idUsuario) {
+
+        String sql = """
+                DELETE FROM usuario
+                WHERE id_usuario = ?
+                """;
+
+        try (
+                Connection conexao = ConexaoBanco.conectar();
+                PreparedStatement stmt = conexao.prepareStatement(sql)
+        ) {
+            stmt.setInt(1, idUsuario);
+            stmt.executeUpdate();
+
+        } catch (SQLException erro) {
+            throw new RuntimeException("Erro ao excluir usuario: " + erro.getMessage());
         }
     }
 }

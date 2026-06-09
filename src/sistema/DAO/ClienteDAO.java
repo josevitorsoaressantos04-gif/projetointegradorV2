@@ -106,7 +106,7 @@ public class ClienteDAO {
                 telefone,
                 email
             FROM cliente
-            ORDER BY nome
+            ORDER BY nome ASC
             """;
 
             List<Cliente> clientes = new ArrayList<>();
