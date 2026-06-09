@@ -3,7 +3,10 @@ import sistema.conexao.ConexaoBanco;
 import sistema.model.Cliente;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 //ajuste rapido
 //develop
@@ -93,4 +96,44 @@ public class ClienteDAO {
             throw new RuntimeException("Erro ao excluir cliente: " + erro.getMessage());
         }
     }
-}
+        public List<Cliente> listar() {
+
+            String sql = """
+            SELECT 
+                id_cliente,
+                nome,
+                cpf_cnpj,
+                telefone,
+                email
+            FROM cliente
+            ORDER BY nome
+            """;
+
+            List<Cliente> clientes = new ArrayList<>();
+
+            try (
+                    Connection conexao = ConexaoBanco.conectar();
+                    PreparedStatement stmt = conexao.prepareStatement(sql);
+                    ResultSet resultado = stmt.executeQuery()
+            ) {
+
+                while (resultado.next()) {
+
+                    Cliente cliente = new Cliente();
+
+                    cliente.setIdCliente(resultado.getInt("id_cliente"));
+                    cliente.setNome(resultado.getString("nome"));
+                    cliente.setCpfCnpj(resultado.getString("cpf_cnpj"));
+                    cliente.setTelefone(resultado.getString("telefone"));
+                    cliente.setEmail(resultado.getString("email"));
+
+                    clientes.add(cliente);
+                }
+
+            } catch (SQLException erro) {
+                throw new RuntimeException("Erro ao listar clientes: " + erro.getMessage());
+            }
+
+            return clientes;
+        }
+    }
