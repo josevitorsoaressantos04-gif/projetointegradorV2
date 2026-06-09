@@ -81,8 +81,9 @@ public class LoginView extends JFrame {
                     "Login realizado com sucesso!\nBem-vindo, " + usuarioLogado.getNome()
             );
 
-            TesteBackendView telaPrincipal = new TesteBackendView(usuarioLogado);
-            telaPrincipal.setVisible(true);
+            PainelInicialView painelInicial = new PainelInicialView(usuarioLogado);
+            painelInicial.setVisible(true);
+
 
             dispose();
 
