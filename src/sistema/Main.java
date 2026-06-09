@@ -1,9 +1,12 @@
 package sistema;
 
-import sistema.model.MovimentoEstoque;
+import sistema.view.LoginView;
 
 public class Main {
+
     public static void main(String[] args) {
-        MovimentoEstoque a = new MovimentoEstoque();
+
+        LoginView loginView = new LoginView();
+        loginView.setVisible(true);
     }
 }

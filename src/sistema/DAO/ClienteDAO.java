@@ -1,10 +1,12 @@
 package sistema.DAO;
-
 import sistema.conexao.ConexaoBanco;
 import sistema.model.Cliente;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 //ajuste rapido
 //develop
@@ -21,25 +23,28 @@ public class ClienteDAO {
                 """;
 
         try (
-                Connection conexao = ConexaoBanco.conectar();
-                PreparedStatement stmt = conexao.prepareStatement(sql)
+                Connection conexao = ConexaoBanco.conectar()
         ) {
+            assert conexao != null;
+            try (PreparedStatement stmt =  conexao.prepareStatement(sql)
+            ) {
 
-            stmt.setString(1, cliente.getNome());
-            stmt.setString(2, cliente.getCpfCnpj());
-            stmt.setString(3, cliente.getTelefone());
-            stmt.setString(4, cliente.getEmail());
+                stmt.setString(1, cliente.getNome());
+                stmt.setString(2, cliente.getCpfCnpj());
+                stmt.setString(3, cliente.getTelefone());
+                stmt.setString(4, cliente.getEmail());
 
-            stmt.executeUpdate();
+                stmt.executeUpdate();
 
-            System.out.println("Cliente cadastrado com sucesso!");
+                System.out.println("Cliente cadastrado com sucesso!");
 
+            }
         } catch (SQLException erro) {
             throw new RuntimeException("Erro ao cadastrar cliente: " + erro.getMessage());
         }
     }
 
-    public void atualizarCliente(Cliente cliente) {
+    public void atualizarCliente( Cliente cliente) {
 
         String sql = """
                 UPDATE cliente
@@ -91,4 +96,44 @@ public class ClienteDAO {
             throw new RuntimeException("Erro ao excluir cliente: " + erro.getMessage());
         }
     }
-}
+        public List<Cliente> listar() {
+
+            String sql = """
+            SELECT 
+                id_cliente,
+                nome,
+                cpf_cnpj,
+                telefone,
+                email
+            FROM cliente
+            ORDER BY nome
+            """;
+
+            List<Cliente> clientes = new ArrayList<>();
+
+            try (
+                    Connection conexao = ConexaoBanco.conectar();
+                    PreparedStatement stmt = conexao.prepareStatement(sql);
+                    ResultSet resultado = stmt.executeQuery()
+            ) {
+
+                while (resultado.next()) {
+
+                    Cliente cliente = new Cliente();
+
+                    cliente.setIdCliente(resultado.getInt("id_cliente"));
+                    cliente.setNome(resultado.getString("nome"));
+                    cliente.setCpfCnpj(resultado.getString("cpf_cnpj"));
+                    cliente.setTelefone(resultado.getString("telefone"));
+                    cliente.setEmail(resultado.getString("email"));
+
+                    clientes.add(cliente);
+                }
+
+            } catch (SQLException erro) {
+                throw new RuntimeException("Erro ao listar clientes: " + erro.getMessage());
+            }
+
+            return clientes;
+        }
+    }
