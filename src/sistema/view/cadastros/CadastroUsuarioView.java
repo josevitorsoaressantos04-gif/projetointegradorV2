@@ -1,6 +1,6 @@
-package sistema.view.cadastros;
+package sistema.view;
 
-import sistema.DAO.UsuarioDAO;
+import sistema.controller.CdUsuarioCtrl;
 import sistema.model.Usuario;
 
 import javax.swing.JButton;
@@ -9,7 +9,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import java.time.LocalDateTime;
 
 public class CadastroUsuarioView extends JFrame {
 
@@ -18,24 +17,25 @@ public class CadastroUsuarioView extends JFrame {
     private JPasswordField campoSenha;
     private JPasswordField campoConfirmarSenha;
 
-    private UsuarioDAO usuarioDAO;
+    private CdUsuarioCtrl cdUsuarioCtrl;
 
     public CadastroUsuarioView() {
-        usuarioDAO = new UsuarioDAO();
+        cdUsuarioCtrl = new CdUsuarioCtrl();
 
         configurarTela();
         montarComponentes();
     }
 
     private void configurarTela() {
-        setTitle("Cadastro de Usuario");
-        setSize(600, 400);
+        setTitle("Cadastro de Usuário");
+        setSize(600, 420);
         setLocationRelativeTo(null);
         setLayout(null);
+        setResizable(false);
     }
 
     private void montarComponentes() {
-        JLabel titulo = new JLabel("Cadastro de Usuario");
+        JLabel titulo = new JLabel("Cadastro de Usuário");
         titulo.setBounds(30, 20, 300, 25);
         add(titulo);
 
@@ -44,7 +44,7 @@ public class CadastroUsuarioView extends JFrame {
         add(labelNome);
 
         campoNome = new JTextField();
-        campoNome.setBounds(160, 70, 300, 25);
+        campoNome.setBounds(170, 70, 300, 25);
         add(campoNome);
 
         JLabel labelLogin = new JLabel("Login:");
@@ -52,7 +52,7 @@ public class CadastroUsuarioView extends JFrame {
         add(labelLogin);
 
         campoLogin = new JTextField();
-        campoLogin.setBounds(160, 110, 300, 25);
+        campoLogin.setBounds(170, 110, 300, 25);
         add(campoLogin);
 
         JLabel labelSenha = new JLabel("Senha:");
@@ -60,7 +60,7 @@ public class CadastroUsuarioView extends JFrame {
         add(labelSenha);
 
         campoSenha = new JPasswordField();
-        campoSenha.setBounds(160, 150, 300, 25);
+        campoSenha.setBounds(170, 150, 300, 25);
         add(campoSenha);
 
         JLabel labelConfirmarSenha = new JLabel("Confirmar senha:");
@@ -68,15 +68,15 @@ public class CadastroUsuarioView extends JFrame {
         add(labelConfirmarSenha);
 
         campoConfirmarSenha = new JPasswordField();
-        campoConfirmarSenha.setBounds(160, 190, 300, 25);
+        campoConfirmarSenha.setBounds(170, 190, 300, 25);
         add(campoConfirmarSenha);
 
         JButton botaoSalvar = new JButton("Salvar");
-        botaoSalvar.setBounds(160, 250, 120, 30);
+        botaoSalvar.setBounds(170, 250, 120, 30);
         add(botaoSalvar);
 
         JButton botaoLimpar = new JButton("Limpar");
-        botaoLimpar.setBounds(300, 250, 120, 30);
+        botaoLimpar.setBounds(310, 250, 120, 30);
         add(botaoLimpar);
 
         botaoSalvar.addActionListener(e -> salvarUsuario());
@@ -90,35 +90,26 @@ public class CadastroUsuarioView extends JFrame {
             String senha = new String(campoSenha.getPassword());
             String confirmarSenha = new String(campoConfirmarSenha.getPassword());
 
-            if (nome.isBlank() || login.isBlank() || senha.isBlank()) {
-                JOptionPane.showMessageDialog(
-                        this,
-                        "Preencha todos os campos obrigatorios.",
-                        "Validacao",
-                        JOptionPane.WARNING_MESSAGE
-                );
-                return;
-            }
-
             if (!senha.equals(confirmarSenha)) {
                 JOptionPane.showMessageDialog(
                         this,
-                        "As senhas nao conferem.",
-                        "Validacao",
+                        "As senhas não conferem.",
+                        "Validação",
                         JOptionPane.WARNING_MESSAGE
                 );
                 return;
             }
 
-            Usuario usuario = new Usuario();
-            usuario.setNome(nome);
-            usuario.setLogin(login);
-            usuario.setSenha(senha);
-            usuario.setDataCadastro(LocalDateTime.now());
+            Usuario usuario = cdUsuarioCtrl.cadastrarUsuario(
+                    nome,
+                    login,
+                    senha
+            );
 
-            usuarioDAO.cadastrar(usuario);
-
-            JOptionPane.showMessageDialog(this, "Usuario cadastrado com sucesso!");
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Usuário cadastrado com sucesso!\nUsuário: " + usuario.getNome()
+            );
 
             limparCampos();
 
@@ -126,7 +117,7 @@ public class CadastroUsuarioView extends JFrame {
             JOptionPane.showMessageDialog(
                     this,
                     erro.getMessage(),
-                    "Erro ao cadastrar usuario",
+                    "Erro ao cadastrar usuário",
                     JOptionPane.ERROR_MESSAGE
             );
         }
