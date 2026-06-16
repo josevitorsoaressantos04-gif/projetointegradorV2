@@ -145,18 +145,18 @@ public class UsuarioDAO {
         }
     }
 
-    public void excluir(int idUsuario) {
+    public void excluir(String nome) {
 
         String sql = """
                 DELETE FROM usuario
-                WHERE id_usuario = ?
+                WHERE nome  = ?
                 """;
 
         try (
                 Connection conexao = ConexaoBanco.conectar();
                 PreparedStatement stmt = conexao.prepareStatement(sql)
         ) {
-            stmt.setInt(1, idUsuario);
+            stmt.setString(1, nome);
             stmt.executeUpdate();
 
         } catch (SQLException erro) {
