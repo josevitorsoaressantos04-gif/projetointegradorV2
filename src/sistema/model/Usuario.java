@@ -16,6 +16,5 @@ public class Usuario {
     private String login;
     private String senha;
     private LocalDateTime dataCadastro;
-
-
+    private String recuperacaoSenha;
 }
