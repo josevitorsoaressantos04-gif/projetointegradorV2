@@ -5,7 +5,7 @@ import java.sql.*;
 public class ConexaoBanco {
     private static final String url = "jdbc:mysql://localhost:3306/gestaoestoque";
     private static final String usuario = "root";
-    private static final String senha = "admin#123";
+    private static final String senha = "admin@123";
 
     // metodo que conecta com o banco de dados
     public static Connection conectar() {

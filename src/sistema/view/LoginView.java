@@ -24,11 +24,12 @@ public class LoginView extends JFrame {
 
         configurarTela();
         montarComponentes();
+
     }
 
     private void configurarTela() {
         setTitle("Login - Gestão de Estoque");
-        setSize(400, 260);
+        setSize(400, 330);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(null);
@@ -65,8 +66,17 @@ public class LoginView extends JFrame {
         botaoSair.setBounds(235, 165, 90, 30);
         add(botaoSair);
 
+        JButton botaoRecuperarSenha = new JButton("Recuperar Senha");
+        botaoRecuperarSenha.setBounds(135, 215, 190, 30);
+        add(botaoRecuperarSenha);
+
         botaoEntrar.addActionListener(e -> realizarLogin());
         botaoSair.addActionListener(e -> System.exit(0));
+
+        botaoRecuperarSenha.addActionListener(e -> {
+            RecuperacaoSenhaView tela = new RecuperacaoSenhaView();
+            tela.setVisible(true);
+        });
     }
 
     private void realizarLogin() {

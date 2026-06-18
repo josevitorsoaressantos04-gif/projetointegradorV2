@@ -14,13 +14,6 @@ public class UsuarioService {
 
     public Usuario validar(String nome, String login, String senha) {
 
-        if (nome == null || nome.trim().isEmpty()) {
-            throw new RuntimeException("Informe um nome.");
-        }
-
-        if (nome.length() > 50) {
-            throw new RuntimeException("A quantidade de caracteres é maior que o limite máximo.");
-        }
 
         if (login == null || login.trim().isEmpty()) {
             throw new RuntimeException("Informe a credencial de login.");
@@ -75,6 +68,8 @@ public class UsuarioService {
         for (int i = 0; i < 10; i++) {
             int posicao = random.nextInt(CARACTERES.length());
             codigo.append(CARACTERES.charAt(posicao));
+
+
         }
 
         return codigo.toString();
@@ -96,77 +91,6 @@ public class UsuarioService {
 
     public class CadastroUsuarioService {
 
-        private UsuarioDAO usuarioDAO = new UsuarioDAO();
 
-        private static final String CARACTERES = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-
-        public Usuario validar(String nome, String login, String senha) {
-
-            if (nome == null || nome.trim().isEmpty()) {
-                throw new RuntimeException("Informe um nome.");
-            }
-
-            if (nome.length() > 50) {
-                throw new RuntimeException("A quantidade de caracteres é maior que o limite máximo.");
-            }
-
-            if (login == null || login.trim().isEmpty()) {
-                throw new RuntimeException("Informe a credencial de login.");
-            }
-
-            if (senha == null || senha.trim().isEmpty()) {
-                throw new RuntimeException("Informe a senha.");
-            }
-
-            Usuario usuario = new Usuario();
-
-            usuario.setNome(nome.trim());
-            usuario.setLogin(login.trim());
-            usuario.setSenha(senha);
-            usuario.setDataCadastro(LocalDateTime.now());
-
-            /*
-             * Valor temporário apenas para passar no NOT NULL e UNIQUE.
-             * Depois do INSERT, será substituído pelo código real.
-             */
-            usuario.setRecuperacaoSenha(gerarCodigoAleatorio());
-
-            usd.cadastrar(usuario);
-
-            String codigoRecuperacao = gerarCodigoUnico();
-
- /*         ajustar:
-          rec.alterarSenhaPorCodigo(
-                    usuario.getLogin(),
-                    codigoRecuperacao);
-*/
-            usuario.setRecuperacaoSenha(codigoRecuperacao);
-
-            return usuario;
-        }
-
-        private String gerarCodigoUnico() {
-            String codigo;
-
-            do {
-                codigo = gerarCodigoAleatorio();
-            } while (usuarioDAO.codigoRecuperacaoExiste(codigo));
-
-            return codigo;
-        }
-
-        private String gerarCodigoAleatorio() {
-
-            SecureRandom random = new SecureRandom();
-            StringBuilder codigo = new StringBuilder();
-
-            for (int i = 0; i < 10; i++) {
-                int posicao = random.nextInt(CARACTERES.length());
-                codigo.append(CARACTERES.charAt(posicao));
-            }
-
-            return codigo.toString();
-        }
     }
-
 }
