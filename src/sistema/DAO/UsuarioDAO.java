@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class UsuarioDAO {
 
     public void cadastrar(Usuario usuario) {
@@ -19,9 +20,10 @@ public class UsuarioDAO {
                     nome,
                     login,
                     senha,
+                    recuperacaoSenha,
                     data_cadastro
                 ) VALUES (
-                    ?, ?, ?, NOW()
+                    ?, ?, ?, ?, NOW()
                 )
                 """;
 
@@ -32,6 +34,7 @@ public class UsuarioDAO {
             stmt.setString(1, usuario.getNome());
             stmt.setString(2, usuario.getLogin());
             stmt.setString(3, usuario.getSenha());
+            stmt.setString(4, usuario.getRecuperacaoSenha());
 
             stmt.executeUpdate();
 
@@ -88,7 +91,6 @@ public class UsuarioDAO {
                     nome,
                     login,
                     senha,
-                    recuperacaoSenha,
                     data_cadastro
                 FROM usuario
                 WHERE login = ?
@@ -112,7 +114,6 @@ public class UsuarioDAO {
                     usuario.setLogin(resultado.getString("login"));
                     usuario.setSenha(resultado.getString("senha"));
                     usuario.setDataCadastro(resultado.getTimestamp("data_cadastro").toLocalDateTime());
-                    stmt.setString(4, usuario.getRecuperacaoSenha());
 
                     return usuario;
                 }
