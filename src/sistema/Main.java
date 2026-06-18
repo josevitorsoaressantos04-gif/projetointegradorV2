@@ -15,7 +15,7 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("view/controladores/erpLogin.fxml"));
         primaryStage.setTitle("Login de usuário");
         primaryStage.setScene(new Scene(root));
-        primaryStage.show(); cu aberto
+        primaryStage.show();
     }
     /*
     public static void main(String[] args) {
