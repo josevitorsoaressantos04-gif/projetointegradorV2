@@ -12,24 +12,30 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sistema.view.controladores.MenuController">
+<BorderPane prefHeight="287.0" prefWidth="346.0" style="-fx-background-color: seashell;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sistema.view.controladores.CadastroController">
     <top>
-        <HBox alignment="CENTER_LEFT" spacing="15.0" BorderPane.alignment="CENTER">
+        <HBox alignment="TOP_CENTER" spacing="15.0" BorderPane.alignment="CENTER">
             <padding>
                 <Insets bottom="20.0" />
             </padding>
             <children>
-                <Button fx:id="btnCliente" mnemonicParsing="false" onAction="#initialize" text="Cliente" />
-                <Button fx:id="btnProduto" mnemonicParsing="false" onAction="#initialize" text="Produto" />
-                <Button fx:id="btnVendas" mnemonicParsing="false" onAction="#initialize" text="Vendas" />
+                <Button fx:id="btnCliente" mnemonicParsing="false" onAction="#initialize" prefHeight="25.0" prefWidth="63.0" style="-fx-background-color: #ff6600; -fx-background-radius: 30;" text="Cliente" />
+                <Button fx:id="btnProduto" mnemonicParsing="false" onAction="#initialize" prefHeight="25.0" prefWidth="67.0" style="-fx-background-color: #ff6600; -fx-background-radius: 30;" text="Produto" />
+                <Button fx:id="btnVendas" mnemonicParsing="false" onAction="#initialize" prefHeight="25.0" prefWidth="64.0" style="-fx-background-color: #ff6600; -fx-background-radius: 30;" text="Vendas" />
             </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <BorderPane.margin>
+            <Insets top="5.0" />
+         </BorderPane.margin>
         </HBox>
     </top>
     <center>
         <StackPane fx:id="areaFormularios" BorderPane.alignment="CENTER">
             <children>
 
-                <GridPane fx:id="formVendas" alignment="TOP_LEFT" hgap="10.0" vgap="15.0" visible="false">
+                <GridPane fx:id="formVendas" alignment="TOP_CENTER" hgap="10.0" vgap="15.0" visible="false">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
@@ -57,7 +63,7 @@
                     </children>
                 </GridPane>
 
-                <GridPane fx:id="formProduto" alignment="TOP_LEFT" hgap="10.0" vgap="15.0" visible="false">
+                <GridPane fx:id="formProduto" alignment="TOP_CENTER" hgap="10.0" vgap="15.0" visible="false">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
@@ -85,10 +91,10 @@
                     </children>
                 </GridPane>
 
-                <GridPane fx:id="formCliente" alignment="TOP_LEFT" hgap="10.0" vgap="15.0">
+                <GridPane fx:id="formCliente" alignment="CENTER" hgap="10.0" vgap="15.0">
                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="189.0" minWidth="10.0" prefWidth="45.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="291.0" minWidth="10.0" prefWidth="291.0" />
                     </columnConstraints>
                     <rowConstraints>
                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
@@ -106,10 +112,19 @@
                         <Label text="Nome:" GridPane.rowIndex="1" />
                         <Label text="CPF:" GridPane.rowIndex="2" />
                         <Label text="E-mail:" GridPane.rowIndex="3" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <Button mnemonicParsing="false" text="Salvar" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <TextField alignment="TOP_LEFT" prefHeight="25.0" prefWidth="202.0" style="-fx-background-radius: 15 3 15 3;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets right="5.0" />
+                     </GridPane.margin></TextField>
+                        <TextField style="-fx-background-radius: 15 3 15 3;" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <GridPane.margin>
+                        <Insets right="5.0" />
+                     </GridPane.margin></TextField>
+                        <TextField style="-fx-background-radius: 15 3 15 3;" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <GridPane.margin>
+                        <Insets right="5.0" />
+                     </GridPane.margin></TextField>
+                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="78.0" style="-fx-background-color: #ff6600; -fx-background-radius: 30;" text="Salvar" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                     </children>
                 </GridPane>
 
