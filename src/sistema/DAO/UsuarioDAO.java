@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class UsuarioDAO {
 
     public void cadastrar(Usuario usuario) {
@@ -19,9 +20,10 @@ public class UsuarioDAO {
                     nome,
                     login,
                     senha,
+                    recuperacaoSenha,
                     data_cadastro
                 ) VALUES (
-                    ?, ?, ?, NOW()
+                    ?, ?, ?, ?, NOW()
                 )
                 """;
 
@@ -32,6 +34,7 @@ public class UsuarioDAO {
             stmt.setString(1, usuario.getNome());
             stmt.setString(2, usuario.getLogin());
             stmt.setString(3, usuario.getSenha());
+            stmt.setString(4, usuario.getRecuperacaoSenha());
 
             stmt.executeUpdate();
 
@@ -161,6 +164,53 @@ public class UsuarioDAO {
 
         } catch (SQLException erro) {
             throw new RuntimeException("Erro ao excluir usuario: " + erro.getMessage());
+        }
+    }
+    public boolean codigoRecuperacaoExiste(String codigo) {
+
+        String sql = """
+            SELECT id_usuario
+            FROM usuario
+            WHERE recuperacaoSenha = ?
+            """;
+
+        try (
+                Connection conexao = ConexaoBanco.conectar();
+                PreparedStatement stmt = conexao.prepareStatement(sql)
+        ) {
+            stmt.setString(1, codigo);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                return rs.next();
+            }
+
+        } catch (SQLException erro) {
+            throw new RuntimeException("Erro ao verificar código de recuperação: " + erro.getMessage());
+        }
+    }
+    public void atualizarCodigoRecuperacao(String login, String codigoRecuperacao) {
+
+        String sql = """
+            UPDATE usuario
+            SET recuperacaoSenha = ?
+            WHERE login = ?
+            """;
+
+        try (
+                Connection conexao = ConexaoBanco.conectar();
+                PreparedStatement stmt = conexao.prepareStatement(sql)
+        ) {
+            stmt.setString(1, codigoRecuperacao);
+            stmt.setString(2, login);
+
+            int linhasAfetadas = stmt.executeUpdate();
+
+            if (linhasAfetadas == 0) {
+                throw new RuntimeException("Nenhum usuário encontrado para atualizar o código de recuperação.");
+            }
+
+        } catch (SQLException erro) {
+            throw new RuntimeException("Erro ao atualizar código de recuperação: " + erro.getMessage());
         }
     }
 }
