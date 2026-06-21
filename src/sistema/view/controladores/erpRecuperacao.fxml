@@ -9,7 +9,6 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="294.0" prefWidth="350.0" style="-fx-background-color: #303030;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sistema.view.controladores.Controller">
    <children>
       <VBox alignment="CENTER" layoutX="32.0" layoutY="47.0" prefHeight="136.0" prefWidth="287.0">
@@ -21,7 +20,7 @@
                         <Insets bottom="5.0" />
                      </HBox.margin>
                   </TextField>
-                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="147.0" style="-fx-background-radius: 30; -fx-background-color: #ff6600;" text="Verificar">
+                  <Button mnemonicParsing="false" onAction="#gerarCodigoRecuperacao" prefHeight="25.0" prefWidth="147.0" style="-fx-background-radius: 30; -fx-background-color: #ff6600;" text="Verificar">
                      <HBox.margin>
                         <Insets bottom="5.0" />
                      </HBox.margin>
