@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
@@ -11,8 +12,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<BorderPane prefHeight="287.0" prefWidth="346.0" style="-fx-background-color: seashell;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sistema.view.controladores.CadastroController">
+<BorderPane prefHeight="464.0" prefWidth="525.0" style="-fx-background-color: seashell;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sistema.view.controladores.CadastroController">
     <top>
         <HBox alignment="TOP_CENTER" spacing="15.0" BorderPane.alignment="CENTER">
             <padding>
@@ -35,16 +37,17 @@
         <StackPane fx:id="areaFormularios" BorderPane.alignment="CENTER">
             <children>
 
-                <GridPane fx:id="formVendas" alignment="TOP_CENTER" hgap="10.0" vgap="15.0" visible="false">
+                <GridPane fx:id="formVendas" alignment="TOP_CENTER" hgap="10.0" vgap="15.0">
                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="141.0" minWidth="10.0" prefWidth="73.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="447.0" minWidth="10.0" prefWidth="442.0" />
                     </columnConstraints>
                     <rowConstraints>
                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
@@ -55,11 +58,27 @@
                         </Label>
                         <Label text="ID Cliente:" GridPane.rowIndex="1" />
                         <Label text="ID Produto:" GridPane.rowIndex="2" />
-                        <Label text="Quantidade:" GridPane.rowIndex="3" />
+                        <Label text="Valores:" GridPane.rowIndex="3" />
                         <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <Button mnemonicParsing="false" text="Salvar" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="283.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total:" />
+                              <TextField />
+                        <Text layoutX="125.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Desconto:" />
+                        <TextField layoutX="10.0" layoutY="27.0" />
+                        <Text layoutX="159.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FP:" />
+                        <ChoiceBox prefWidth="150.0" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="0.0" prefWidth="442.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                     <children>
+                              <Button mnemonicParsing="false" text="Salvar" />
+                        <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Limpar" />
+                     </children>
+                  </HBox>
+                  <Label layoutX="10.0" layoutY="252.0" text="Status:" GridPane.rowIndex="4" />
+                  <ChoiceBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                     </children>
                 </GridPane>
 
@@ -81,20 +100,34 @@
                                 <Font name="System Bold" size="18.0" />
                             </font>
                         </Label>
-                        <Label text="Descrição:" GridPane.rowIndex="1" />
-                        <Label text="Categoria:" GridPane.rowIndex="2" />
-                        <Label text="Preço:" GridPane.rowIndex="3" />
+                        <Label text="Nome:" GridPane.rowIndex="1" />
+                        <Label text="Descrição:" GridPane.rowIndex="2" />
+                        <Label text="Valores:" GridPane.rowIndex="3" />
                         <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <Button mnemonicParsing="false" text="Salvar" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="395.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Custo:" />
+                              <TextField />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Venda:" />
+                        <TextField layoutX="10.0" layoutY="10.0" />
+                        <Text layoutX="193.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Estoque:" />
+                        <TextField layoutX="230.0" layoutY="27.0" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="0.0" prefWidth="444.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                     <children>
+                              <Button mnemonicParsing="false" text="Salvar" />
+                        <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Limpar" />
+                     </children>
+                  </HBox>
                     </children>
                 </GridPane>
 
-                <GridPane fx:id="formCliente" alignment="CENTER" hgap="10.0" vgap="15.0">
+                <GridPane fx:id="formCliente" alignment="CENTER" hgap="10.0" vgap="15.0" visible="false">
                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="189.0" minWidth="10.0" prefWidth="45.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="291.0" minWidth="10.0" prefWidth="291.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="266.0" minWidth="10.0" prefWidth="51.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="464.0" minWidth="10.0" prefWidth="464.0" />
                     </columnConstraints>
                     <rowConstraints>
                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
@@ -102,6 +135,7 @@
                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
                         <Label text="Cadastro de Cliente" GridPane.columnSpan="2">
@@ -111,7 +145,7 @@
                         </Label>
                         <Label text="Nome:" GridPane.rowIndex="1" />
                         <Label text="CPF:" GridPane.rowIndex="2" />
-                        <Label text="E-mail:" GridPane.rowIndex="3" />
+                        <Label text="Telefone" GridPane.rowIndex="3" />
                         <TextField alignment="TOP_LEFT" prefHeight="25.0" prefWidth="202.0" style="-fx-background-radius: 15 3 15 3;" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets right="5.0" />
@@ -124,7 +158,14 @@
                      <GridPane.margin>
                         <Insets right="5.0" />
                      </GridPane.margin></TextField>
-                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="78.0" style="-fx-background-color: #ff6600; -fx-background-radius: 30;" text="Salvar" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <TextField layoutX="76.0" layoutY="221.0" style="-fx-background-radius: 15 3 15 3;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <Label layoutX="10.0" layoutY="207.0" text="E-mail:" GridPane.rowIndex="4" />
+                  <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                     <children>
+                              <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="82.0" style="-fx-background-color: #ff6600; -fx-background-radius: 30;" text="Salvar" />
+                        <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="82.0" style="-fx-background-color: #ff6600; -fx-background-radius: 30;" text="Limpar" />
+                     </children>
+                  </HBox>
                     </children>
                 </GridPane>
 
