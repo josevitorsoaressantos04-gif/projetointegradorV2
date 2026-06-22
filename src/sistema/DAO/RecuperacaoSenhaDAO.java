@@ -108,8 +108,7 @@ public class RecuperacaoSenhaDAO {
 
         String sql = """
                 UPDATE usuario
-                SET 
-                    senha = ?,
+                SET senha = ?,
                     recuperacaoSenha = ?
                 WHERE recuperacaoSenha = ?
                 """;
