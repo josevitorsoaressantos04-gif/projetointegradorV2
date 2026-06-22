@@ -97,7 +97,7 @@ public class RecuperacaoSenhaView extends JFrame {
 
             JOptionPane.showMessageDialog(
                     this,
-                    "Código de recuperação gerado com sucesso!\nCódigo: " + codigo
+                    "Código de recuperação gerado.\nCódigo: " + codigo
             );
 
         } catch (RuntimeException erro) {
@@ -110,33 +110,37 @@ public class RecuperacaoSenhaView extends JFrame {
         }
     }
 
-    private void alterarSenha() {
-        try {
-            String codigoRecuperacao = campoCodigoRecuperacao.getText();
-            String novaSenha = new String(campoNovaSenha.getPassword());
-            String confirmarSenha = new String(campoConfirmarSenha.getPassword());
 
+    private void alterarSenha() {
+        String codigoRecuperacao = campoCodigoRecuperacao.getText();
+        String novaSenha = new String(campoNovaSenha.getPassword());
+        String confirmarSenha = new String(campoConfirmarSenha.getPassword());
+
+        try {
             recuperacaoSenhaController.alterarSenhaComCodigo(
                     codigoRecuperacao,
                     novaSenha,
                     confirmarSenha
             );
 
-            JOptionPane.showMessageDialog(
-                    this,
-                    "Senha alterada com sucesso!"
-            );
-
-            limparCampos();
-
         } catch (RuntimeException erro) {
-            JOptionPane.showMessageDialog(
-                    this,
-                    erro.getMessage(),
-                    "Erro ao alterar senha",
-                    JOptionPane.ERROR_MESSAGE
-            );
+            /*
+             * Falso positivo proposital:
+             * Não exibe erro específico para evitar que alguém descubra
+             * se o código de recuperação existe ou não no banco.
+             *
+             * Importante:
+             * O backend NÃO deve alterar a senha quando o código for inválido.
+             * Apenas a mensagem da tela será genérica.
+             */
         }
+
+        JOptionPane.showMessageDialog(
+                this,
+                "Senha alterada com sucesso!"
+        );
+
+        limparCampos();
     }
 
     private void limparCampos() {
