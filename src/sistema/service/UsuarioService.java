@@ -89,4 +89,8 @@ public class UsuarioService {
         usd.excluir(login.trim());
     }
 
+    public void editarUsuario(String idUsuario){
+
+    }
+
 }

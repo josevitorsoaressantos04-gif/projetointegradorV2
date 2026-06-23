@@ -213,4 +213,12 @@ public class UsuarioDAO {
             throw new RuntimeException("Erro ao atualizar código de recuperação: " + erro.getMessage());
         }
     }
+
+    public void editarNomeUsuario(String idUsuario){
+       String sqlMudarNome = """
+    update usuario
+    set nome = ?
+    where idUsuario = ?
+    """;
+    }
 }
