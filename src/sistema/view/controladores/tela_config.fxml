@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<ScrollPane fitToWidth="true" prefHeight="932.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sistema.view.controladores.ConfigController">
+    <content>
+        <VBox prefHeight="1040.0" prefWidth="748.0" spacing="25.0" style="-fx-background-color: seashell;">
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+            </padding>
+            <children>
+
+                <VBox alignment="TOP_CENTER" spacing="10.0" style="-fx-border-color: #cccccc; -fx-border-radius: 5; -fx-padding: 15;">
+                    <children>
+                        <Label style="-fx-font-weight: bold; -fx-font-size: 16px;" text="Adicionar Parâmetros do Sistema" />
+
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                            <children>
+                                <TextField fx:id="txtFormaPagamento" promptText="Forma de Pagamento" style="-fx-background-radius: 15 3 15 3;" HBox.hgrow="ALWAYS" />
+                                <Button fx:id="btnSalvarPagamento" style="-fx-background-color: #ff6600; -fx-background-radius: 15;" text="Salvar">
+                           <effect>
+                              <InnerShadow height="6.34" radius="2.55" width="5.86" />
+                           </effect></Button>
+                            </children>
+                        </HBox>
+
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                            <children>
+                                <TextField fx:id="txtStatus" promptText="Status" style="-fx-background-radius: 15 3 15 3;" HBox.hgrow="ALWAYS" />
+                                <Button fx:id="btnSalvarStatus" style="-fx-background-color: #ff6600; -fx-background-radius: 15;" text="Salvar">
+                           <effect>
+                              <InnerShadow height="6.34" radius="2.55" width="5.86" />
+                           </effect></Button>
+                            </children>
+                        </HBox>
+
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                            <children>
+                                <TextField fx:id="txtTipoTransacao" promptText="Tipo de Transação" style="-fx-background-radius: 15 3 15 3;" HBox.hgrow="ALWAYS" />
+                                <Button fx:id="btnSalvarTransacao" style="-fx-background-color: #ff6600; -fx-background-radius: 15;" text="Salvar">
+                           <effect>
+                              <InnerShadow height="6.34" radius="2.55" width="5.86" />
+                           </effect></Button>
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+
+                <VBox alignment="TOP_CENTER" spacing="10.0" style="-fx-border-color: #cccccc; -fx-border-radius: 5; -fx-padding: 15;">
+                    <children>
+                        <Label alignment="TOP_LEFT" style="-fx-font-weight: bold; -fx-font-size: 16px;" text="Logotipo do Sistema" />
+                        <HBox alignment="CENTER_LEFT" spacing="20.0">
+                            <children>
+                                <ImageView fx:id="imgLogo" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);" />
+                                <VBox spacing="10.0">
+                                    <children>
+                                        <Button fx:id="btnSelecionarLogo" prefHeight="25.0" prefWidth="128.0" style="-fx-background-radius: 15;" text="Selecionar Imagem">
+                                 <effect>
+                                    <InnerShadow height="6.34" radius="2.55" width="5.86" />
+                                 </effect></Button>
+                                        <Button fx:id="btnSalvarLogo" style="-fx-background-color: #ff6600; -fx-text-fill: black; -fx-background-radius: 15;" text="Salvar Logo">
+                                 <effect>
+                                    <InnerShadow height="6.34" radius="2.55" width="5.86" />
+                                 </effect></Button>
+                                    </children>
+                                </VBox>
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+
+                <VBox alignment="TOP_CENTER" spacing="10.0" style="-fx-border-color: #cccccc; -fx-border-radius: 5; -fx-padding: 15;">
+                    <children>
+                        <Label style="-fx-font-weight: bold; -fx-font-size: 16px;" text="Gerenciar Ocorrências de Dados" />
+                        <HBox spacing="10.0">
+                            <children>
+                                <Button fx:id="btnFiltrarClientes" style="-fx-background-color: #ff6600; -fx-background-radius: 15;" text="Clientes">
+                           <effect>
+                              <InnerShadow height="6.34" radius="2.55" width="5.86" />
+                           </effect></Button>
+                                <Button fx:id="btnFiltrarProdutos" style="-fx-background-color: #ff6600; -fx-background-radius: 15;" text="Produtos">
+                           <effect>
+                              <InnerShadow height="6.34" radius="2.55" width="5.86" />
+                           </effect></Button>
+                                <Button fx:id="btnFiltrarVendas" style="-fx-background-color: #ff6600; -fx-background-radius: 15;" text="Vendas">
+                           <effect>
+                              <InnerShadow height="6.34" radius="2.55" width="5.86" />
+                           </effect></Button>
+                            </children>
+                        </HBox>
+
+                        <ListView fx:id="listViewDados" prefHeight="150.0" style="-fx-background-radius: 20 0 20 0;" />
+
+                        <HBox alignment="CENTER_RIGHT">
+                            <children>
+                                <Button fx:id="btnSalvarDados" style="-fx-background-color: #ff6600; -fx-text-fill: black; -fx-background-radius: 30;" text="Apagar registro">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                           <effect>
+                              <InnerShadow height="6.34" radius="2.55" width="5.86" />
+                           </effect></Button>
+                        <Button fx:id="btnSalvarDados1" layoutX="507.0" layoutY="10.0" style="-fx-background-color: #ff6600; -fx-text-fill: black; -fx-background-radius: 30;" text="Salvar alterações">
+                           <effect>
+                              <InnerShadow height="6.34" radius="2.55" width="5.86" />
+                           </effect>
+                        </Button>
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+            <VBox alignment="TOP_CENTER" prefHeight="143.0" prefWidth="708.0" style="-fx-border-color: #cccc; -fx-border-radius: 5;">
+               <children>
+                  <Label text="Alterar Login e Senha">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <TextField prefHeight="25.0" prefWidth="595.0" promptText="Novo Login" style="-fx-background-radius: 15 3 15 3;">
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="15.0" right="15.0" top="10.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <TextField prefHeight="25.0" prefWidth="671.0" promptText="Senha atual" style="-fx-background-radius: 15 3 15 3;">
+                     <VBox.margin>
+                        <Insets left="15.0" right="15.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <TextField prefHeight="25.0" prefWidth="671.0" promptText="Nova senha" style="-fx-background-radius: 15 3 15 3;">
+                     <VBox.margin>
+                        <Insets left="15.0" right="15.0" top="10.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <TextField prefHeight="25.0" prefWidth="671.0" promptText="Confirmar senha" style="-fx-background-radius: 15 3 15 3;">
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="15.0" right="15.0" top="10.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Button mnemonicParsing="false" style="-fx-background-color: #ff6600; -fx-background-radius: 15;" text="Alterar">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                           <effect>
+                              <InnerShadow height="6.34" radius="2.55" width="5.86" />
+                           </effect>
+                        </Button>
+                        <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" style="-fx-background-color: #ff6600; -fx-background-radius: 15;" text="Limpar">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                           <effect>
+                              <InnerShadow height="6.34" radius="2.55" width="5.86" />
+                           </effect>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets top="15.0" />
+               </padding>
+            </VBox>
+
+                <HBox alignment="CENTER_RIGHT" spacing="10.0">
+                    <children>
+                        <Label style="-fx-font-weight: bold;" text="Tema do Sistema:" />
+                        <Button fx:id="btnTemaVerde" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: #4CAF50; -fx-cursor: hand; -fx-background-radius: 15 0 15 15;" />
+                        <Button fx:id="btnTemaAzul" prefHeight="7.0" prefWidth="25.0" style="-fx-background-color: #2196F3; -fx-cursor: hand; -fx-background-radius: 15 0 15 15;" />
+                        <Button fx:id="btnTemaEscuro" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: #333333; -fx-cursor: hand; -fx-background-radius: 15 0 15 15;" />
+                    </children>
+                    <VBox.margin>
+                        <Insets top="10.0" />
+                    </VBox.margin>
+                </HBox>
+
+            </children>
+        </VBox>
+    </content>
+</ScrollPane>
