@@ -11,6 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+
 import java.io.File;
 
 public class ConfigController {
@@ -56,7 +57,7 @@ public class ConfigController {
 
     private void configurarSecaoLogo() {
         // Carrega uma imagem padrão placeholder caso não tenha nenhuma definida
-        imgLogo.setImage(new Image("https://www.pngkey.com/png/full/276-2767518_resultado-de-imagen-de-burro-png-ne-de.png"));
+        imgLogo.setImage (new Image("https://www.pngkey.com/png/full/276-2767518_resultado-de-imagen-de-burro-png-ne-de.png"));
 
         btnSelecionarLogo.setOnAction(e -> {
             FileChooser fileChooser = new FileChooser();

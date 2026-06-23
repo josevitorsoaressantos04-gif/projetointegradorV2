@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.Modality;
 
@@ -14,6 +15,8 @@ import java.io.IOException;
 
 public class Controller {
 
+    @FXML private Text retornarLogin;
+    
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -65,6 +68,7 @@ public class Controller {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.setTitle("Menu");
+        stage.setFullScreen(true);
         stage.show();
     }
 

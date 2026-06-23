@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
@@ -16,7 +15,6 @@ public class MenuController {
     @FXML private Button btnListas;
     @FXML private Button btnConfig;
     @FXML private StackPane painelDireitoCentral;
-    @FXML private ImageView logoSistema;
 
     @FXML
     public void initialize() {
