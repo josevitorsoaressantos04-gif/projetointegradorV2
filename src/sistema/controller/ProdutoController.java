@@ -23,7 +23,20 @@ public class ProdutoController {
         return produtoService.listarProdutos();
     }
 
-    public void excluirProduto(String idTexto) {
-        produtoService.excluirProduto(idTexto);
+
+    public void editarProduto(
+            String id,
+            String nome,
+            String descricao,
+            String valorCusto,
+            String valorVenda,
+            String estoque
+    ) {
+        produtoService.editarProduto(id, nome, descricao, valorCusto, valorVenda, estoque);
     }
+
+    public void excluirProduto(String id) {
+        produtoService.excluirProduto(id);
+    }
+
 }
