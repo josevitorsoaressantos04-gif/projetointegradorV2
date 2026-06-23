@@ -8,12 +8,17 @@ import java.security.SecureRandom;
 import java.time.LocalDateTime;
 
 public class UsuarioService {
-    private UsuarioDAO usd = new UsuarioDAO();
-    private RecuperacaoSenhaDAO rec = new RecuperacaoSenhaDAO();
+    private final UsuarioDAO usd = new UsuarioDAO();
     private static final String CARACTERES = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
-    public Usuario validar(String nome, String login, String senha) {
+    public Usuario cadastrarUsuario(String nome, String login, String senha) {
+        if( nome == null || nome.trim().isEmpty()){
+            throw new RuntimeException("Informe um nome");
+        }
 
+        if( nome.length()> 200){
+            throw new RuntimeException("O limite de 200 caracteres foi atingido");
+        }
 
         if (login == null || login.trim().isEmpty()) {
             throw new RuntimeException("Informe a credencial de login.");
@@ -75,22 +80,13 @@ public class UsuarioService {
         return codigo.toString();
     }
 
-    public class ExcluirUsuarioService {
+    public void excluirUsuario(String login) {
 
-        private UsuarioDAO usuarioDAO = new UsuarioDAO();
-
-        public void excluirUsuario(String nome) {
-
-            if (nome == null || nome.trim().isEmpty()) {
-                throw new RuntimeException("Informe o nome do usuário para exclusão.");
-            }
-
-            usuarioDAO.excluir(nome.trim());
+        if (login == null || login.trim().isEmpty()) {
+            throw new RuntimeException("Informe o nome do usuário para exclusão.");
         }
+
+        usd.excluir(login.trim());
     }
 
-    public class CadastroUsuarioService {
-
-
-    }
 }
