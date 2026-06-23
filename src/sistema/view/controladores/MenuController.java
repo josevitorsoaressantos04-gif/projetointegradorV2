@@ -1,5 +1,6 @@
 package sistema.view.controladores;
 
+import javafx.animation.TranslateTransition;
 import javafx.beans.property.ObjectProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,6 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.util.Duration;
 import sistema.view.controladores.ConfigController;
 
 import java.io.IOException;
@@ -33,14 +35,92 @@ public class MenuController {
         menuInteiro.setDividerPositions(1);
 
 
-        // Define as ações dos botões laterais
+        // Ações de cada botão do painel esquerdo do menu.
         btnInicio.setOnAction(e -> carregarTela("tela_inicio.fxml"));
         btnCadastro.setOnAction(e -> carregarTela("tela_cadastro.fxml"));
         btnListas.setOnAction(e -> carregarTela("tela_listas.fxml"));
         btnConfig.setOnAction(e -> carregarTela("tela_config.fxml"));
 
-
         carregarTela("tela_inicio.fxml");
+
+        //Animação de recuo dos botões do menu.
+        TranslateTransition recuo = new TranslateTransition(Duration.millis(250), btnInicio);
+        TranslateTransition recuo2 = new TranslateTransition(Duration.millis(250), btnCadastro);
+        TranslateTransition recuo3 = new TranslateTransition(Duration.millis(250), btnListas);
+        TranslateTransition recuo4 = new TranslateTransition(Duration.millis(250), btnConfig);
+
+        if (btnInicio != null) {
+            btnInicio.setOnMouseEntered(e-> {
+                recuo2.setToX(-70);
+                recuo2.play();
+                recuo3.setToX(-70);
+                recuo3.play();
+                recuo4.setToX(-70);
+                recuo4.play();
+            });
+            btnInicio.setOnMouseExited(e->{
+                recuo2.setToX(0);
+                recuo2.play();
+                recuo3.setToX(0);
+                recuo3.play();
+                recuo4.setToX(0);
+                recuo4.play();
+            });
+        }
+        if (btnCadastro != null) {
+            btnCadastro.setOnMouseEntered(e-> {
+                recuo.setToX(-70);
+                recuo.play();
+                recuo3.setToX(-70);
+                recuo3.play();
+                recuo4.setToX(-70);
+                recuo4.play();
+            });
+            btnCadastro.setOnMouseExited(e->{
+                recuo.setToX(0);
+                recuo.play();
+                recuo3.setToX(0);
+                recuo3.play();
+                recuo4.setToX(0);
+                recuo4.play();
+            });
+        }
+        if (btnListas != null) {
+            btnListas.setOnMouseEntered(e-> {
+                recuo2.setToX(-70);
+                recuo2.play();
+                recuo.setToX(-70);
+                recuo.play();
+                recuo4.setToX(-70);
+                recuo4.play();
+            });
+            btnListas.setOnMouseExited(e->{
+                recuo2.setToX(0);
+                recuo2.play();
+                recuo.setToX(0);
+                recuo.play();
+                recuo4.setToX(0);
+                recuo4.play();
+            });
+        }
+        if (btnConfig != null) {
+            btnConfig.setOnMouseEntered(e-> {
+                recuo2.setToX(-70);
+                recuo2.play();
+                recuo3.setToX(-70);
+                recuo3.play();
+                recuo.setToX(-70);
+                recuo.play();
+            });
+            btnConfig.setOnMouseExited(e->{
+                recuo2.setToX(0);
+                recuo2.play();
+                recuo3.setToX(0);
+                recuo3.play();
+                recuo.setToX(0);
+                recuo.play();
+            });
+        }
     }
 
     private void carregarTela(String arquivoFxml) {
