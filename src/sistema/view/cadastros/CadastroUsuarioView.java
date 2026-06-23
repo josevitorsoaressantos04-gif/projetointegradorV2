@@ -1,6 +1,6 @@
-package sistema.view;
+package sistema.view.cadastros;
 
-import sistema.controller.CdUsuarioCtrl;
+import sistema.controller.UsuarioController;
 import sistema.model.Usuario;
 
 import javax.swing.JButton;
@@ -17,10 +17,10 @@ public class CadastroUsuarioView extends JFrame {
     private JPasswordField campoSenha;
     private JPasswordField campoConfirmarSenha;
 
-    private CdUsuarioCtrl cdUsuarioCtrl;
+    private UsuarioController usuarioController;
 
     public CadastroUsuarioView() {
-        cdUsuarioCtrl = new CdUsuarioCtrl();
+       usuarioController = new UsuarioController();
 
         configurarTela();
         montarComponentes();
@@ -100,7 +100,7 @@ public class CadastroUsuarioView extends JFrame {
                 return;
             }
 
-            Usuario usuario = cdUsuarioCtrl.cadastrarUsuario(
+            Usuario usuario = usuarioController.cadastrarUsuario(
                     nome,
                     login,
                     senha
