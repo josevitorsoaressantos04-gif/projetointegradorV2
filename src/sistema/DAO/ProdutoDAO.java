@@ -39,7 +39,7 @@ public class ProdutoDAO {
 
     public List<Produto> listar() {
         String sql = """
-                SELECT id_produto, nome, descricao, valor_custo, valor_venda, estoque
+                SELECT id, nome, descricao, valor_custo, valor_venda, estoque
                 FROM produto
                 ORDER BY nome ASC
                 """;
@@ -54,7 +54,7 @@ public class ProdutoDAO {
             while (rs.next()) {
                 Produto produto = new Produto();
 
-                produto.setIdProduto(rs.getInt("id_produto"));
+                produto.setIdProduto(rs.getInt("id"));
                 produto.setNome(rs.getString("nome"));
                 produto.setDescricao(rs.getString("descricao"));
                 produto.setValorCusto(rs.getBigDecimal("valor_custo"));
@@ -73,7 +73,7 @@ public class ProdutoDAO {
 
     public Produto buscarPorId(int idProduto) {
         String sql = """
-                SELECT id_produto, nome, descricao, valor_custo, valor_venda, estoque
+                SELECT id, nome, descricao, valor_custo, valor_venda, estoque
                 FROM produto
                 WHERE id_produto = ?
                 """;
@@ -89,7 +89,7 @@ public class ProdutoDAO {
             if (rs.next()) {
                 Produto produto = new Produto();
 
-                produto.setIdProduto(rs.getInt("id_produto"));
+                produto.setIdProduto(rs.getInt("id"));
                 produto.setNome(rs.getString("nome"));
                 produto.setDescricao(rs.getString("descricao"));
                 produto.setValorCusto(rs.getBigDecimal("valor_custo"));
@@ -114,7 +114,7 @@ public class ProdutoDAO {
                     valor_custo = ?,
                     valor_venda = ?,
                     estoque = ?
-                WHERE id_produto = ?
+                WHERE id = ?
                 """;
 
         try (
@@ -138,7 +138,7 @@ public class ProdutoDAO {
     public void excluir(int idProduto) {
         String sql = """
                 DELETE FROM produto
-                WHERE id_produto = ?
+                WHERE id = ?
                 """;
 
         try (
@@ -157,7 +157,7 @@ public class ProdutoDAO {
         String sql = """
                 UPDATE produto
                 SET estoque = ?
-                WHERE id_produto = ?
+                WHERE id = ?
                 """;
 
         try (
