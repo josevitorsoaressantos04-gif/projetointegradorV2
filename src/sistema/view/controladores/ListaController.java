@@ -1,32 +1,42 @@
 package sistema.view.controladores;
 
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import sistema.controller.ProdutoController;
+import sistema.controller.ClienteController;
+import java.math.BigDecimal;
+import java.util.List;
 
 public class ListaController {
 
-    @FXML private TableView<Produto> tabelaProdutos;
-    @FXML private TableColumn<Produto, Number> colIdProduto;
-    @FXML private TableColumn<Produto, String> colNomeProduto;
-    @FXML private TableColumn<Produto, Number> colCusto;
-    @FXML private TableColumn<Produto, Number> colValorVenda;
-    @FXML private TableColumn<Produto, Number> colEstoque;
+    @FXML private TableView<sistema.model.Produto> tabelaProdutos;
 
-    @FXML private TableView<Cliente> tabelaClientes;
-    @FXML private TableColumn<Cliente, Number> colIdCliente;
-    @FXML private TableColumn<Cliente, String> colNomeCliente;
-    @FXML private TableColumn<Cliente, Number> colCpf;
-    @FXML private TableColumn<Cliente, Number> colTelefone;
-    @FXML private TableColumn<Cliente, Number> colEmail;
+    @FXML private TableColumn<sistema.model.Produto, Integer> colIdProduto;
+    @FXML private TableColumn<sistema.model.Produto, String> colNomeProduto;
+    @FXML private TableColumn<sistema.model.Produto, BigDecimal> colCusto;
+    @FXML private TableColumn<sistema.model.Produto, BigDecimal> colValorVenda;
+    @FXML private TableColumn<sistema.model.Produto, Integer> colEstoque;
+
+    private ProdutoController produtoCtrl = new ProdutoController();
+
+    @FXML private TableView<sistema.model.Cliente> tabelaClientes;
+
+    @FXML private TableColumn<sistema.model.Cliente, Integer> colIdCliente;
+    @FXML private TableColumn<sistema.model.Cliente, String> colNomeCliente;
+    @FXML private TableColumn<sistema.model.Cliente, String> colCpfCnpj;
+    @FXML private TableColumn<sistema.model.Cliente, String> colTelefone;
+    @FXML private TableColumn<sistema.model.Cliente, String> colEmail;
+
+    private ClienteController clienteCtrl = new ClienteController();
 
     @FXML private TableView<Vendas> tabelaVendas;
+
     @FXML private TableColumn<Vendas, Number> colIdVenda;
     @FXML private TableColumn<Vendas, String> colValorTotal;
     @FXML private TableColumn<Vendas, Number> colDesconto;
@@ -38,48 +48,54 @@ public class ListaController {
 
     @FXML
     public void initialize() {
-        // Configurando como as colunas vão ler os dados do objeto Produto
-        colIdProduto.setCellValueFactory(cellData -> cellData.getValue().idProperty());
-        colNomeProduto.setCellValueFactory(cellData -> cellData.getValue().nomeProperty());
-        colCusto.setCellValueFactory(cellData -> cellData.getValue().precoProperty());
-
-        // Simulando dados de banco de dados
-        ObservableList<Produto> dadosMock = FXCollections.observableArrayList(
-                new Produto(1, "Notebook Dell Inspiron", 4500.00),
-                new Produto(2, "Mouse Sem Fio Logitech", 120.50),
-                new Produto(3, "Teclado Mecânico Redragon", 280.00),
-                new Produto(4, "Monitor LG 24 Polegadas", 850.00),
-                new Produto(5, "Cadeira de Escritório Ergonômica", 1150.00)
-        );
-
-        tabelaProdutos.setItems(dadosMock);
+        configurarColunas();
+        carregarDadosBanco();
     }
 
-    public static class Cliente {}
+    private void configurarColunas(){
+        colIdProduto.setCellValueFactory(new PropertyValueFactory<>("idProduto"));
+        colNomeProduto.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        colCusto.setCellValueFactory(new PropertyValueFactory<>("valorCusto"));
+        colValorVenda.setCellValueFactory(new PropertyValueFactory<>("valorVenda"));
+        colEstoque.setCellValueFactory(new PropertyValueFactory<>("estoque"));
+
+        colIdCliente.setCellValueFactory(new PropertyValueFactory<>("idCliente"));
+        colNomeCliente.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        colCpfCnpj.setCellValueFactory(new PropertyValueFactory<>("cpfCnpj"));
+        colTelefone.setCellValueFactory(new PropertyValueFactory<>("telefone"));
+        colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+    }
+    private void carregarDadosBanco(){
+        try {
+            List<sistema.model.Produto> produtosBanco = produtoCtrl.listarProdutos();
+
+            ObservableList<sistema.model.Produto> dadosObservados = FXCollections.observableArrayList(produtosBanco);
+
+            tabelaProdutos.setItems(dadosObservados);
+
+        } catch (RuntimeException e){
+            exibirAlerta("Erro de Banco de Dados", "Não foi possível carregar os produtos: " + e.getMessage(), Alert.AlertType.ERROR);
+        }
+
+        try {
+            List<sistema.model.Cliente> produtosBanco = clienteCtrl.listarClientes();
+
+            ObservableList<sistema.model.Cliente> dadosObservados = FXCollections.observableArrayList(produtosBanco);
+
+            tabelaClientes.setItems(dadosObservados);
+
+        } catch (RuntimeException e){
+            exibirAlerta("Erro de Banco de Dados", "Não foi possível carregar os clientes: " + e.getMessage(), Alert.AlertType.ERROR);
+        }
+
+    }
+    private void exibirAlerta(String titulo, String mensagem, Alert.AlertType tipo) {
+        Alert alerta = new Alert(tipo);
+        alerta.setTitle(titulo);
+        alerta.setHeaderText(null);
+        alerta.setContentText(mensagem);
+        alerta.showAndWait();
+    }
+
     public static class Vendas {}
-
-    // Classe de Modelo Interna (Você pode extraí-la para um arquivo Produto.java depois)
-    public static class Produto {
-        private final SimpleIntegerProperty idProduto;
-        private final SimpleStringProperty nomeProduto;
-        private final SimpleDoubleProperty preco;
-
-        public Produto(int id, String nome, double preco) {
-            this.idProduto = new SimpleIntegerProperty(id);
-            this.nomeProduto = new SimpleStringProperty(nome);
-            this.preco = new SimpleDoubleProperty(preco);
-        }
-
-        public SimpleIntegerProperty idProperty() {
-            return idProduto;
-        }
-
-        public SimpleStringProperty nomeProperty() {
-            return nomeProduto;
-        }
-
-        public SimpleDoubleProperty precoProperty() {
-            return preco;
-        }
-    }
 }

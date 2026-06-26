@@ -95,7 +95,7 @@
                                 <columns>
                                   <TableColumn fx:id="colIdCliente" prefWidth="48.0" style="-fx-background-color: #ff6600; -fx-border-color: #303030;" text="ID" />
                                     <TableColumn fx:id="colNomeCliente" prefWidth="195.0" style="-fx-background-color: #ff6600; -fx-border-color: #303030;" text="Nome" />
-                                  <TableColumn fx:id="colCpf" prefWidth="124.0" style="-fx-background-color: #ff6600; -fx-border-color: #303030;" text="CPF/CNPJ" />
+                                  <TableColumn fx:id="colCpfCnpj" prefWidth="124.0" style="-fx-background-color: #ff6600; -fx-border-color: #303030;" text="CPF/CNPJ" />
                                     <TableColumn fx:id="colTelefone" prefWidth="128.0" style="-fx-background-color: #ff6600; -fx-border-color: #303030;" text="Telefone" />
                                     <TableColumn fx:id="colEmail" prefWidth="86.0" style="-fx-background-color: #ff6600; -fx-border-color: #303030;" text="Email" />
                                 </columns>

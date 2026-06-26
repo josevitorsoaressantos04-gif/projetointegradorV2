@@ -52,7 +52,7 @@ public class ClienteDAO {
                     cpf_cnpj = ?,
                     telefone = ?,
                     email = ?
-                WHERE id_cliente = ?
+                WHERE id = ?
                 """;
 
         try (
@@ -79,7 +79,7 @@ public class ClienteDAO {
 
         String sql = """
                 DELETE FROM cliente
-                WHERE id_cliente = ?
+                WHERE id = ?
                 """;
 
         try (
@@ -100,7 +100,7 @@ public class ClienteDAO {
 
             String sql = """
             SELECT 
-                id_cliente,
+                id,
                 nome,
                 cpf_cnpj,
                 telefone,
@@ -121,7 +121,7 @@ public class ClienteDAO {
 
                     Cliente cliente = new Cliente();
 
-                    cliente.setIdCliente(resultado.getInt("id_cliente"));
+                    cliente.setIdCliente(resultado.getInt("id"));
                     cliente.setNome(resultado.getString("nome"));
                     cliente.setCpfCnpj(resultado.getString("cpf_cnpj"));
                     cliente.setTelefone(resultado.getString("telefone"));
