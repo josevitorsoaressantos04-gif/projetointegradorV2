@@ -19,7 +19,7 @@ public class DadosIniciaisDAO {
     private void inserirUsuarioAdministrador() {
         String sql = """
                 INSERT INTO usuario (
-                    id_usuario,
+                    id,
                     nome,
                     login,
                     senha,

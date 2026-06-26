@@ -1,4 +1,4 @@
-package sistema.view;
+/* package sistema.view;
 
 import sistema.controller.LoginController;
 import sistema.model.Usuario;
@@ -96,4 +96,4 @@ public class LoginView extends JFrame {
             );
         }
     }
-}
+} */

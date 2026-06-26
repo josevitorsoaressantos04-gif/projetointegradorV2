@@ -23,7 +23,6 @@ public class UsuarioService {
             throw new RuntimeException("Informe a senha.");
         }
 
-
         if (nome.isEmpty() || login.isEmpty() || senha.isEmpty()) {
             throw new RuntimeException("Erro ao cadastrar usuario: Verifique os dados preenchidos");
         }
@@ -52,5 +51,4 @@ public class UsuarioService {
             usuarioDAO.excluir(nome.trim());
         }
     }
-
 }

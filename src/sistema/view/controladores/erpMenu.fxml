@@ -14,7 +14,7 @@
   <items>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="586.0" prefWidth="10.0" style="-fx-background-color: #303030;">
          <children>
-            <Text fill="WHITE" layoutX="61.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bem vindo, ?" textAlignment="CENTER" wrappingWidth="206.646484375">
+            <Text fx:id="bemVindo" fill="SEASHELL" layoutX="61.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bem vindo, ?" textAlignment="CENTER" wrappingWidth="206.646484375">
                <font>
                   <Font size="20.0" />
                </font>

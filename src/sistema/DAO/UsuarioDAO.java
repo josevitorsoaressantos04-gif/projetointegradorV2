@@ -44,7 +44,7 @@ public class UsuarioDAO {
 
         String sql = """
                 SELECT
-                    id_usuario,
+                    id,
                     nome,
                     login,
                     senha,
@@ -64,7 +64,7 @@ public class UsuarioDAO {
 
                 Usuario usuario = new Usuario();
 
-                usuario.setIdUsuario(resultado.getInt("id_usuario"));
+                usuario.setIdUsuario(resultado.getInt("id"));
                 usuario.setNome(resultado.getString("nome"));
                 usuario.setLogin(resultado.getString("login"));
                 usuario.setSenha(resultado.getString("senha"));
@@ -84,7 +84,7 @@ public class UsuarioDAO {
 
         String sql = """
                 SELECT
-                    id_usuario,
+                    id,
                     nome,
                     login,
                     senha,
@@ -106,7 +106,7 @@ public class UsuarioDAO {
                 if (resultado.next()) {
                     Usuario usuario = new Usuario();
 
-                    usuario.setIdUsuario(resultado.getInt("id_usuario"));
+                    usuario.setIdUsuario(resultado.getInt("id"));
                     usuario.setNome(resultado.getString("nome"));
                     usuario.setLogin(resultado.getString("login"));
                     usuario.setSenha(resultado.getString("senha"));
@@ -128,7 +128,7 @@ public class UsuarioDAO {
         String sql = """
                 UPDATE usuario
                 SET senha = ?
-                WHERE id_usuario = ?
+                WHERE id = ?
                 """;
 
         try (
