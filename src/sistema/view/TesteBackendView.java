@@ -1,4 +1,4 @@
-package sistema.view;
+/* package sistema.view;
 
 import sistema.DAO.ClienteDAO;
 import sistema.DAO.DadosIniciaisDAO;
@@ -394,4 +394,4 @@ public class TesteBackendView extends JFrame {
         campoValorVenda.setText("");
         campoEstoque.setText("");
     }
-}
+} */

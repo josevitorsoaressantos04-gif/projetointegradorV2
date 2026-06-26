@@ -1,4 +1,4 @@
-package sistema.view;
+/* package sistema.view;
 
 import sistema.model.Usuario;
 import sistema.view.cadastros.*;
@@ -262,4 +262,4 @@ public class PainelInicialView extends JFrame {
         LogsView tela = new LogsView();
         tela.setVisible(true);
     }
-}
+} */
