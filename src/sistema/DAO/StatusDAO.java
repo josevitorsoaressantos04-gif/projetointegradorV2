@@ -11,7 +11,7 @@ public class StatusDAO {
     public void inserir(Status status) {
         String sql = """
                 INSERT INTO `status` (
-                    id_status,
+                    id,
                     descricao
                 ) VALUES (?, ?)
                 """;
@@ -32,9 +32,9 @@ public class StatusDAO {
 
     public List<Status> listar() {
         String sql = """
-                SELECT id_status, descricao
+                SELECT id, descricao
                 FROM `status`
-                ORDER BY id_status
+                ORDER BY id
                 """;
 
         List<Status> statusList = new ArrayList<>();
@@ -47,7 +47,7 @@ public class StatusDAO {
             while (rs.next()) {
                 Status status = new Status();
 
-                status.setIdStatus(rs.getInt("id_status"));
+                status.setIdStatus(rs.getInt("id"));
                 status.setDescricao(rs.getString("descricao"));
 
                 statusList.add(status);
