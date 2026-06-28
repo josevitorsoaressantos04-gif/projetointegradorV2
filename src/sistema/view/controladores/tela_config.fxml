@@ -103,14 +103,14 @@
 
                         <HBox alignment="CENTER_RIGHT">
                             <children>
-                                <Button fx:id="btnSalvarDados" style="-fx-background-color: #ff6600; -fx-text-fill: black; -fx-background-radius: 30;" text="Apagar registro">
+                                <Button fx:id="btnApagarDados" style="-fx-background-color: #ff6600; -fx-text-fill: black; -fx-background-radius: 30;" text="Apagar registro">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>
                            <effect>
                               <InnerShadow height="6.34" radius="2.55" width="5.86" />
                            </effect></Button>
-                        <Button fx:id="btnSalvarDados1" layoutX="507.0" layoutY="10.0" style="-fx-background-color: #ff6600; -fx-text-fill: black; -fx-background-radius: 30;" text="Salvar alterações">
+                        <Button fx:id="btnSalvarDados" layoutX="507.0" layoutY="10.0" style="-fx-background-color: #ff6600; -fx-text-fill: black; -fx-background-radius: 30;" text="Salvar alterações">
                            <effect>
                               <InnerShadow height="6.34" radius="2.55" width="5.86" />
                            </effect>
