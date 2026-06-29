@@ -118,8 +118,11 @@ public class ConfigController {
     }
 
     private void configurarSecaoLogo() {
-        // Carrega uma imagem padrão placeholder caso não tenha nenhuma definida
-        imgLogo.setImage (new Image("https://www.pngkey.com/png/full/276-2767518_resultado-de-imagen-de-burro-png-ne-de.png"));
+        if (sistema.model.Sessao.getInstancia().getLogoSistema() != null) {
+            imgLogo.setImage(sistema.model.Sessao.getInstancia().getLogoSistema());
+        } else {
+            imgLogo.setImage(new Image("https://www.pngkey.com/png/full/276-2767518_resultado-de-imagen-de-burro-png-ne-de.png"));
+        }
 
         btnSelecionarLogo.setOnAction(e -> {
             FileChooser fileChooser = new FileChooser();
@@ -138,7 +141,9 @@ public class ConfigController {
             }
         });
 
-        btnSalvarLogo.setOnAction(e -> System.out.println("Logotipo do sistema atualizado com sucesso!"));
+        btnSalvarLogo.setOnAction(e -> {
+            sistema.model.Sessao.getInstancia().setLogoSistema(imgLogo.getImage());
+            exibirAlerta("Sucesso", "Logotipo do sistema atualizado com sucesso!", Alert.AlertType.INFORMATION);});
     }
 
     private void configurarSecaoDados() {

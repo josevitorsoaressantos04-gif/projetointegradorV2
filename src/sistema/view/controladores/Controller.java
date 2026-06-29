@@ -81,6 +81,7 @@ public class Controller {
         try {
             // Tenta autenticar. Se der erro, o Service lança uma Exception e cai no catch
             Usuario usuarioLogado = loginControllerBackend.realizarLogin(login, senha);
+            sistema.model.Sessao.getInstancia().setUsuarioLogado(usuarioLogado);
 
             // Se chegou nesta linha, o login foi um sucesso! Redireciona para o Menu.
             mudarParaMenu(event);

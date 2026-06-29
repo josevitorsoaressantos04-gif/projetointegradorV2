@@ -27,9 +27,9 @@
                               <Font name="System Bold" size="20.0" />
                            </font>
                         </Label>
-                        <HBox prefHeight="409.0" prefWidth="629.0">
+                        <HBox prefHeight="409.0" prefWidth="629.0" VBox.vgrow="ALWAYS">
                            <children>
-                                <TableView fx:id="tabelaProdutos" prefHeight="153.0" prefWidth="845.0" style="-fx-background-color: seashell; -fx-border-color: #303030; -fx-background-radius: 30;">
+                                <TableView fx:id="tabelaProdutos" prefHeight="153.0" prefWidth="845.0" style="-fx-background-color: seashell; -fx-border-color: #303030; -fx-background-radius: 30;" HBox.hgrow="ALWAYS">
                                     <columns>
                                         <TableColumn fx:id="colIdProduto" prefWidth="50.0" style="-fx-background-color: #ff6600; -fx-border-color: #303030;" text="ID" />
                                         <TableColumn fx:id="colNomeProduto" prefWidth="200.0" style="-fx-background-color: #ff6600; -fx-border-color: #303030;" text="Nome" />
@@ -37,6 +37,9 @@
                                     <TableColumn fx:id="colValorVenda" prefWidth="126.0" style="-fx-background-color: #ff6600; -fx-border-color: #303030;" text="Valor Venda (R$)" />
                                     <TableColumn fx:id="colEstoque" minWidth="0.0" prefWidth="109.0" style="-fx-background-color: #ff6600; -fx-border-color: #303030;" text="Estoque" />
                                     </columns>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
                                 </TableView>
                               <VBox alignment="TOP_CENTER" prefHeight="400.0" prefWidth="288.0" style="-fx-background-color: seashell;">
                                  <children>
@@ -89,9 +92,9 @@
                               <Font name="System Bold" size="20.0" />
                            </font>
                         </Label>
-                        <HBox prefHeight="421.0" prefWidth="700.0">
+                        <HBox prefHeight="421.0" prefWidth="700.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <TableView fx:id="tabelaClientes" prefHeight="374.0" prefWidth="626.0" style="-fx-background-color: seashell; -fx-border-color: #303030;">
+                              <TableView fx:id="tabelaClientes" prefHeight="374.0" prefWidth="626.0" style="-fx-background-color: seashell; -fx-border-color: #303030;" HBox.hgrow="ALWAYS">
                                 <columns>
                                   <TableColumn fx:id="colIdCliente" prefWidth="48.0" style="-fx-background-color: #ff6600; -fx-border-color: #303030;" text="ID" />
                                     <TableColumn fx:id="colNomeCliente" prefWidth="195.0" style="-fx-background-color: #ff6600; -fx-border-color: #303030;" text="Nome" />
@@ -99,8 +102,11 @@
                                     <TableColumn fx:id="colTelefone" prefWidth="128.0" style="-fx-background-color: #ff6600; -fx-border-color: #303030;" text="Telefone" />
                                     <TableColumn fx:id="colEmail" prefWidth="86.0" style="-fx-background-color: #ff6600; -fx-border-color: #303030;" text="Email" />
                                 </columns>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
                               </TableView>
-                              <VBox alignment="TOP_CENTER" prefHeight="374.0" prefWidth="155.0" style="-fx-background-color: seashell;">
+                              <VBox alignment="TOP_CENTER" prefHeight="349.0" prefWidth="110.0" style="-fx-background-color: seashell;">
                                  <children>
                                     <Button mnemonicParsing="false" style="-fx-background-color: #ff6600; -fx-background-radius: 15;" text="Filtro 1">
                                        <VBox.margin>
@@ -127,7 +133,7 @@
                                        </font>
                                     </Button>
                                     <Separator prefHeight="258.0" prefWidth="115.0" visible="false" />
-                                    <DatePicker prefHeight="25.0" prefWidth="80.0" />
+                                    <DatePicker prefHeight="25.0" prefWidth="98.0" style="-fx-Hgrow: ALWAYS; -fx-background-color: #FF6600;" />
                                  </children>
                               </VBox>
                            </children>
@@ -148,9 +154,9 @@
                               <Font name="System Bold" size="20.0" />
                            </font>
                         </Label>
-                        <HBox prefHeight="432.0" prefWidth="700.0">
+                        <HBox prefHeight="432.0" prefWidth="700.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <TableView fx:id="tabelaVendas" prefHeight="387.0" prefWidth="646.0" style="-fx-background-color: seashell; -fx-border-color: #303030;">
+                              <TableView fx:id="tabelaVendas" prefHeight="387.0" prefWidth="646.0" style="-fx-background-color: seashell; -fx-border-color: #303030;" HBox.hgrow="ALWAYS">
                                 <columns>
                                   <TableColumn fx:id="colIdVenda" prefWidth="42.0" style="-fx-background-color: #ff6600; -fx-border-color: #303030;" text="ID" />
                                     <TableColumn fx:id="colClienteIdCliente" prefWidth="101.0" style="-fx-background-color: #ff6600; -fx-border-color: #303030;" text="Cliente" />
@@ -160,10 +166,13 @@
                                     <TableColumn fx:id="colStatus" prefWidth="74.0" style="-fx-background-color: #ff6600; -fx-border-color: #303030;" text="Status" />
                                     <TableColumn fx:id="colData" prefWidth="96.0" style="-fx-background-color: #ff6600; -fx-border-color: #303030;" text="Data" />
                                 </columns>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
                               </TableView>
-                              <VBox alignment="TOP_CENTER" prefHeight="374.0" prefWidth="157.0" style="-fx-background-color: seashell;">
+                              <VBox alignment="TOP_CENTER" prefHeight="349.0" prefWidth="206.0" style="-fx-background-color: seashell;">
                                  <children>
-                                    <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="105.0" style="-fx-background-color: #ff6600; -fx-background-radius: 15;" text="Consumo cliente">
+                                    <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="118.0" style="-fx-background-color: #ff6600; -fx-background-radius: 15;" text="Consumo cliente">
                                        <VBox.margin>
                                           <Insets top="10.0" />
                                        </VBox.margin>
@@ -188,7 +197,7 @@
                                        </font>
                                     </Button>
                                     <Separator prefHeight="311.0" prefWidth="77.0" visible="false" />
-                                    <DatePicker prefHeight="25.0" prefWidth="73.0" />
+                                    <DatePicker prefHeight="25.0" prefWidth="114.0" style="-fx-Hgrow: ALWAYS; -fx-background-color: #FF6600;" />
                                  </children>
                               </VBox>
                            </children>
@@ -204,7 +213,7 @@
                <content>
                   <VBox prefHeight="392.0" prefWidth="720.0" style="-fx-background-color: seashell;">
                      <children>
-                        <HBox prefHeight="38.0" prefWidth="700.0">
+                        <HBox prefHeight="38.0" prefWidth="700.0" VBox.vgrow="ALWAYS">
                            <children>
                               <Label prefHeight="30.0" prefWidth="212.0" text="Tabela personalizável">
                                  <font>

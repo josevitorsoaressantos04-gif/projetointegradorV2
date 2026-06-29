@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<?import javafx.scene.layout.VBox?>
-<?import javafx.geometry.Insets?>
 <SplitPane fx:id="menuInteiro" dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="689.0" prefWidth="847.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sistema.view.controladores.MenuController">
   <items>
       <AnchorPane fx:id="painelEsquerdo" minHeight="0.0" minWidth="300.0" prefHeight="687.0" prefWidth="600.0" style="-fx-background-color: #303030;">
@@ -21,7 +21,7 @@
                   <Font size="20.0" />
                </font>
             </Text>
-             <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+             <ImageView fx:id="imgLogo" fitHeight="80.0" fitWidth="207.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" />
              <VBox layoutY="243.0" prefHeight="430.0" prefWidth="279.0">
                  <children>
                      <Button fx:id="btnInicio" mnemonicParsing="false" onAction="#initialize" prefHeight="59.0" prefWidth="291.0" style="-fx-background-radius: 0 0 75 0; -fx-background-color: #ff6600;" text="Início">
