@@ -6,10 +6,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.SplitPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
+import sistema.model.Sessao;
 
 
 import java.io.IOException;
@@ -25,6 +28,7 @@ public class MenuController {
     @FXML private Button btnConfig;
     @FXML private StackPane painelDireitoCentral;
     @FXML private Text bemVindo;
+    @FXML private ImageView imgLogo;
 
     @FXML
     public void initialize() {
@@ -40,6 +44,15 @@ public class MenuController {
 
         // Carrega a tela de Início assim que o app abre
         carregarTela("tela_inicio.fxml");
+
+        if (Sessao.getInstancia().getUsuarioLogado() != null) {
+            bemVindo.setText("Bem vindo, " + Sessao.getInstancia().getUsuarioLogado().getNome() + "!");
+        }
+
+        if (Sessao.getInstancia().getLogoSistema() == null) {
+            Sessao.getInstancia().setLogoSistema(new Image("https://sp-ao.shortpixel.ai/client/to_auto,q_glossy,ret_img/https://www.softarte.com.br/wp-content/uploads/2019/03/Logo_Soft_horizontal.png"));
+        }
+        imgLogo.imageProperty().bind(Sessao.getInstancia().logoSistemaProperty());
 
         TranslateTransition recuo = new TranslateTransition(Duration.millis(250), btnInicio);
         TranslateTransition recuo2 = new TranslateTransition(Duration.millis(250), btnCadastro);
