@@ -153,13 +153,12 @@
                               <TableView fx:id="tabelaVendas" prefHeight="387.0" prefWidth="646.0" style="-fx-background-color: seashell; -fx-border-color: #303030;">
                                 <columns>
                                   <TableColumn fx:id="colIdVenda" prefWidth="42.0" style="-fx-background-color: #ff6600; -fx-border-color: #303030;" text="ID" />
-                                  <TableColumn fx:id="colValorTotal" prefWidth="78.0" style="-fx-background-color: #ff6600; -fx-border-color: #303030;" text="Valor Total" />
+                                    <TableColumn fx:id="colClienteIdCliente" prefWidth="101.0" style="-fx-background-color: #ff6600; -fx-border-color: #303030;" text="Cliente" />
+                                  <TableColumn fx:id="colValorTotal" prefWidth="86.0" style="-fx-background-color: #ff6600; -fx-border-color: #303030;" text="Valor Total" />
                                     <TableColumn fx:id="colDesconto" prefWidth="71.0" style="-fx-background-color: #ff6600; -fx-border-color: #303030;" text="Desconto" />
-                                    <TableColumn prefWidth="109.0" style="-fx-background-color: #ff6600; -fx-border-color: #303030;" text="Cliente" />
-                                    <TableColumn prefWidth="75.0" style="-fx-background-color: #ff6600; -fx-border-color: #303030;" text="Produto" />
-                                    <TableColumn fx:id="colFormaPagamento" prefWidth="101.0" style="-fx-background-color: #ff6600; -fx-border-color: #303030;" text="Forma Pagamento" />
-                                    <TableColumn fx:id="colData" prefWidth="71.0" style="-fx-background-color: #ff6600; -fx-border-color: #303030;" text="Data" />
-                                    <TableColumn fx:id="colStatus" prefWidth="43.0" style="-fx-background-color: #ff6600; -fx-border-color: #303030;" text="Status" />
+                                    <TableColumn fx:id="colFormaPagamento" prefWidth="120.0" style="-fx-background-color: #ff6600; -fx-border-color: #303030;" text="Forma Pagamento" />
+                                    <TableColumn fx:id="colStatus" prefWidth="74.0" style="-fx-background-color: #ff6600; -fx-border-color: #303030;" text="Status" />
+                                    <TableColumn fx:id="colData" prefWidth="96.0" style="-fx-background-color: #ff6600; -fx-border-color: #303030;" text="Data" />
                                 </columns>
                               </TableView>
                               <VBox alignment="TOP_CENTER" prefHeight="374.0" prefWidth="157.0" style="-fx-background-color: seashell;">

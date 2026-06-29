@@ -10,6 +10,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import sistema.controller.ProdutoController;
 import sistema.controller.ClienteController;
+import sistema.controller.VendaController;
+
+import sistema.model.Venda;
+
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -35,14 +39,18 @@ public class ListaController {
 
     private ClienteController clienteCtrl = new ClienteController();
 
-    @FXML private TableView<Vendas> tabelaVendas;
+    @FXML private TableView<sistema.model.Venda> tabelaVendas;
 
-    @FXML private TableColumn<Vendas, Number> colIdVenda;
-    @FXML private TableColumn<Vendas, String> colValorTotal;
-    @FXML private TableColumn<Vendas, Number> colDesconto;
-    @FXML private TableColumn<Vendas, String> colFormaPagamento;
-    @FXML private TableColumn<Vendas, Number> colData;
-    @FXML private TableColumn<Vendas,String> colStatus;
+    @FXML private TableColumn<sistema.model.Venda, Number> colIdVenda;
+    @FXML private TableColumn<sistema.model.Venda, String> colValorTotal;
+    @FXML private TableColumn<sistema.model.Venda, Number> colDesconto;
+    @FXML private TableColumn<sistema.model.Venda, Number> colData;
+    @FXML private TableColumn<sistema.model.Venda,String> colFormaPagamento;
+    @FXML private TableColumn<sistema.model.Venda,String> colStatus;
+    @FXML private TableColumn<sistema.model.Venda,String> colClienteIdCliente;
+
+
+    private VendaController vendaCtrl = new VendaController();
 
     @FXML private Button btnAdicionarColuna;
 
@@ -64,6 +72,15 @@ public class ListaController {
         colCpfCnpj.setCellValueFactory(new PropertyValueFactory<>("cpfCnpj"));
         colTelefone.setCellValueFactory(new PropertyValueFactory<>("telefone"));
         colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+
+        colIdVenda.setCellValueFactory(new PropertyValueFactory<>("idVenda"));
+        colClienteIdCliente.setCellValueFactory(new PropertyValueFactory<>("nomeCliente"));
+        colValorTotal.setCellValueFactory(new PropertyValueFactory<>("valorTotal"));
+        colDesconto.setCellValueFactory(new PropertyValueFactory<>("desconto"));
+        colFormaPagamento.setCellValueFactory(new PropertyValueFactory<>("descricaoPagamento"));
+        colStatus.setCellValueFactory(new PropertyValueFactory<>("descricaoStatus"));
+        colData.setCellValueFactory(new PropertyValueFactory<>("dataVenda"));
+
     }
     private void carregarDadosBanco(){
         try {
@@ -78,14 +95,25 @@ public class ListaController {
         }
 
         try {
-            List<sistema.model.Cliente> produtosBanco = clienteCtrl.listarClientes();
+            List<sistema.model.Cliente> clientesBanco = clienteCtrl.listarClientes();
 
-            ObservableList<sistema.model.Cliente> dadosObservados = FXCollections.observableArrayList(produtosBanco);
+            ObservableList<sistema.model.Cliente> dadosObservados = FXCollections.observableArrayList(clientesBanco);
 
             tabelaClientes.setItems(dadosObservados);
 
         } catch (RuntimeException e){
             exibirAlerta("Erro de Banco de Dados", "Não foi possível carregar os clientes: " + e.getMessage(), Alert.AlertType.ERROR);
+        }
+
+        try {
+            List<sistema.model.Venda> vendasBanco = vendaCtrl.listarVendas();
+
+            ObservableList<sistema.model.Venda> dadosObservados = FXCollections.observableArrayList(vendasBanco);
+
+            tabelaVendas.setItems(dadosObservados);
+
+        } catch (RuntimeException e){
+            exibirAlerta("Erro de Banco de Dados", "Não foi possível carregar as vendas: " + e.getMessage(), Alert.AlertType.ERROR);
         }
 
     }
@@ -96,6 +124,4 @@ public class ListaController {
         alerta.setContentText(mensagem);
         alerta.showAndWait();
     }
-
-    public static class Vendas {}
 }

@@ -10,68 +10,86 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<SplitPane dividerPositions="0.35" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="689.0" prefWidth="947.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sistema.view.controladores.MenuController">
+<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.Insets?>
+<SplitPane fx:id="menuInteiro" dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="689.0" prefWidth="847.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sistema.view.controladores.MenuController">
   <items>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="586.0" prefWidth="10.0" style="-fx-background-color: #303030;">
+      <AnchorPane fx:id="painelEsquerdo" minHeight="0.0" minWidth="300.0" prefHeight="687.0" prefWidth="600.0" style="-fx-background-color: #303030;">
          <children>
             <Text fx:id="bemVindo" fill="SEASHELL" layoutX="61.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bem vindo, ?" textAlignment="CENTER" wrappingWidth="206.646484375">
                <font>
                   <Font size="20.0" />
                </font>
             </Text>
-            <Button fx:id="btnInicio" layoutY="258.0" mnemonicParsing="false" onAction="#initialize" prefHeight="59.0" prefWidth="291.0" style="-fx-background-radius: 0 0 75 0; -fx-background-color: #ff6600;" text="Início">
-               <font>
-                  <Font name="Verdana Bold" size="18.0" />
-               </font>
-               <effect>
-                  <InnerShadow height="25.4" radius="12.565" width="26.86">
-                     <color>
-                        <Color opacity="0.8999999761581421" />
-                     </color>
-                  </InnerShadow>
-               </effect>
-            </Button>
-            <Button fx:id="btnCadastro" layoutY="342.0" mnemonicParsing="false" onAction="#initialize" prefHeight="59.0" prefWidth="291.0" style="-fx-background-radius: 0 0 75 0; -fx-background-color: #ff6600;" text="Cadastro">
-               <font>
-                  <Font name="Verdana Bold" size="18.0" />
-               </font>
-               <effect>
-                  <InnerShadow height="25.4" radius="12.565" width="26.86">
-                     <color>
-                        <Color opacity="0.8999999761581421" />
-                     </color>
-                  </InnerShadow>
-               </effect>
-            </Button>
-            <Button fx:id="btnListas" layoutY="426.0" mnemonicParsing="false" onAction="#initialize" prefHeight="59.0" prefWidth="291.0" style="-fx-background-radius: 0 0 75 0; -fx-background-color: #ff6600;" text="Listas">
-               <font>
-                  <Font name="Verdana Bold" size="18.0" />
-               </font>
-               <effect>
-                  <InnerShadow height="25.4" radius="12.565" width="26.86">
-                     <color>
-                        <Color opacity="0.8999999761581421" />
-                     </color>
-                  </InnerShadow>
-               </effect>
-            </Button>
-            <Button fx:id="btnConfig" layoutY="506.0" mnemonicParsing="false" onAction="#initialize" prefHeight="59.0" prefWidth="291.0" style="-fx-background-radius: 0 0 75 0; -fx-background-color: #ff6600;" text="Configurações">
-               <font>
-                  <Font name="Verdana Bold" size="18.0" />
-               </font>
-               <effect>
-                  <InnerShadow height="25.4" radius="12.565" width="26.86">
-                     <color>
-                        <Color opacity="0.8999999761581421" />
-                     </color>
-                  </InnerShadow>
-               </effect>
-            </Button>
-            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+             <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+             <VBox layoutY="243.0" prefHeight="430.0" prefWidth="279.0">
+                 <children>
+                     <Button fx:id="btnInicio" mnemonicParsing="false" onAction="#initialize" prefHeight="59.0" prefWidth="291.0" style="-fx-background-radius: 0 0 75 0; -fx-background-color: #ff6600;" text="Início">
+                         <font>
+                             <Font name="Verdana Bold" size="18.0" />
+                         </font>
+                         <effect>
+                             <InnerShadow height="25.4" radius="12.565" width="26.86">
+                                 <color>
+                                     <Color opacity="0.8999999761581421" />
+                                 </color>
+                             </InnerShadow>
+                         </effect>
+                         <VBox.margin>
+                             <Insets top="10.0" />
+                         </VBox.margin>
+                     </Button>
+                     <Button fx:id="btnCadastro" mnemonicParsing="false" onAction="#initialize" prefHeight="59.0" prefWidth="291.0" style="-fx-background-radius: 0 0 75 0; -fx-background-color: #ff6600;" text="Cadastro">
+                         <font>
+                             <Font name="Verdana Bold" size="18.0" />
+                         </font>
+                         <effect>
+                             <InnerShadow height="25.4" radius="12.565" width="26.86">
+                                 <color>
+                                     <Color opacity="0.8999999761581421" />
+                                 </color>
+                             </InnerShadow>
+                         </effect>
+                         <VBox.margin>
+                             <Insets top="10.0" />
+                         </VBox.margin>
+                     </Button>
+                     <Button fx:id="btnListas" mnemonicParsing="false" onAction="#initialize" prefHeight="59.0" prefWidth="291.0" style="-fx-background-radius: 0 0 75 0; -fx-background-color: #ff6600;" text="Listas">
+                         <font>
+                             <Font name="Verdana Bold" size="18.0" />
+                         </font>
+                         <effect>
+                             <InnerShadow height="25.4" radius="12.565" width="26.86">
+                                 <color>
+                                     <Color opacity="0.8999999761581421" />
+                                 </color>
+                             </InnerShadow>
+                         </effect>
+                         <VBox.margin>
+                             <Insets top="10.0" />
+                         </VBox.margin>
+                     </Button>
+                     <Button fx:id="btnConfig" mnemonicParsing="false" onAction="#initialize" prefHeight="59.0" prefWidth="291.0" style="-fx-background-radius: 0 0 75 0; -fx-background-color: #ff6600;" text="Configurações">
+                         <font>
+                             <Font name="Verdana Bold" size="18.0" />
+                         </font>
+                         <effect>
+                             <InnerShadow height="25.4" radius="12.565" width="26.86">
+                                 <color>
+                                     <Color opacity="0.8999999761581421" />
+                                 </color>
+                             </InnerShadow>
+                         </effect>
+                         <VBox.margin>
+                             <Insets top="10.0" />
+                         </VBox.margin>
+                     </Button>
+                 </children>
+             </VBox>
          </children></AnchorPane>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="586.0" prefWidth="476.0" style="-fx-background-color: seashell;">
          <children>
-            <StackPane fx:id="painelDireitoCentral" layoutY="-1.0" prefHeight="689.0" prefWidth="611.0" />
+             <StackPane fx:id="painelDireitoCentral" layoutY="-1.0" prefHeight="689.0" prefWidth="510.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
          </children></AnchorPane>
   </items>
 </SplitPane>
