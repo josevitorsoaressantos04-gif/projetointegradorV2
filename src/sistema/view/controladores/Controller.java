@@ -7,7 +7,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.Glow;
 import javafx.scene.text.Text;
@@ -15,10 +14,9 @@ import javafx.stage.Stage;
 import javafx.stage.Modality;
 import sistema.controller.LoginController;
 import sistema.controller.CdUsuarioCtrl;
+import sistema.controller.RecuperacaoSenhaController;
 import sistema.model.Usuario;
 
-import java.awt.*;
-import java.awt.Button;
 import java.io.IOException;
 
 public class Controller {
@@ -31,6 +29,12 @@ public class Controller {
     @FXML private TextField campoCadastroLogin;
     @FXML private PasswordField campoCadastroSenha;
     @FXML private PasswordField campoConfirmaSenha;
+    @FXML private TextField recuperacaoLogin;
+    @FXML private TextField recuperacaoCodigo;
+    @FXML private TextField recuperacaoNovaSenha;
+    @FXML private TextField recuperacaoConfirmaSenha;
+
+    @FXML private TextField recuperacaoCodigoGerado;
 
 
     private Stage stage;
@@ -39,6 +43,7 @@ public class Controller {
 
     private LoginController loginControllerBackend = new LoginController();
     private CdUsuarioCtrl cadastroNovoUsuario = new CdUsuarioCtrl();
+    private final RecuperacaoSenhaController recuperacaoCtrl = new RecuperacaoSenhaController();
 
     @FXML public void initialize() {
 
@@ -149,8 +154,24 @@ public class Controller {
         stage.show();
     }
 
-    public void gerarCodigoRecuperacao(Event event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("erpCodigo.fxml"));
+    public void mostrarCodigoRecuperacao(Event event) throws IOException {
+        String login = recuperacaoLogin.getText();
+
+        try {
+            // 1. Gera o código seguro vindo do Service
+            String codigoGerado = recuperacaoCtrl.gerarCodigoRecuperacao(login);
+
+            // 2. Carrega a janela do pop-up
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("erpCodigo.fxml"));
+            root = loader.load();
+
+            // 3. Guarda o código gerado dentro do root (Passagem de dados entre janelas)
+            Controller popupController = loader.getController();
+
+            //4
+            popupController.setCodigoNoPopUp(codigoGerado);
+            recuperacaoCodigo.setText(codigoGerado);
+
         Stage popCodigo = new Stage();
         popCodigo.setTitle("");
         popCodigo.setScene(new Scene(root));
@@ -158,6 +179,47 @@ public class Controller {
         popCodigo.initModality(Modality.APPLICATION_MODAL);
         popCodigo.showAndWait();
 
+    } catch (RuntimeException e) {
+        // Captura se o login estiver em branco ou se acontecer outra validação de regra de negócio
+        exibirAlerta("Aviso", e.getMessage(), Alert.AlertType.WARNING);
+    } catch (IOException e) {
+        exibirAlerta("Erro de Sistema", "Não foi possível abrir o arquivo erpCodigo.fxml.", Alert.AlertType.ERROR);
+        e.printStackTrace();
+    }
+}
+    public void setCodigoNoPopUp(String codigo) {
+        if (recuperacaoCodigoGerado != null) {
+            recuperacaoCodigoGerado.setText(codigo);
+        }
+    }
+    @FXML
+    public void salvarRecuperacao(Event event) {
+        String codigo = recuperacaoCodigo.getText();
+        String novaSenha = recuperacaoNovaSenha.getText();
+        String confirmaSenha = recuperacaoConfirmaSenha.getText();
+
+        try {
+            // Executa a alteração chamando o backend
+            recuperacaoCtrl.alterarSenhaComCodigo(codigo, novaSenha, confirmaSenha);
+
+            exibirAlerta("Sucesso", "A sua senha foi redefinida com sucesso!", Alert.AlertType.INFORMATION);
+
+            // Limpa o formulário após salvar
+            limparCamposRecuperacao(event);
+
+        } catch (RuntimeException e) {
+            // Trata senhas que não coincidem, tamanho inválido ou código incorreto
+            exibirAlerta("Validação", e.getMessage(), Alert.AlertType.WARNING);
+        } catch (Exception e) {
+            exibirAlerta("Erro de Sistema", "Ocorreu um erro ao atualizar: " + e.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
+    @FXML
+    public void limparCamposRecuperacao(Event event) {
+        if (recuperacaoLogin != null) recuperacaoLogin.clear();
+        if (recuperacaoCodigo != null) recuperacaoCodigo.clear();
+        if (recuperacaoNovaSenha != null) recuperacaoNovaSenha.clear();
+        if (recuperacaoConfirmaSenha != null) recuperacaoConfirmaSenha.clear();
     }
 
     public void mudarParaMenu(Event event) throws IOException {
@@ -169,5 +231,4 @@ public class Controller {
         stage.setFullScreen(true);
         stage.show();
     }
-
 }

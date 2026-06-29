@@ -2,11 +2,15 @@ package sistema.service;
 
 import sistema.model.Usuario;
 import sistema.DAO.UsuarioDAO;
+import sistema.DAO.RecuperacaoSenhaDAO;
 
+import java.security.SecureRandom;
 import java.time.LocalDateTime;
 
 public class UsuarioService {
     private UsuarioDAO usd = new UsuarioDAO();
+    private RecuperacaoSenhaDAO rec = new RecuperacaoSenhaDAO();
+    private static final String CARACTERES = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
     public Usuario validar(String nome, String login, String senha) {
 
@@ -15,11 +19,11 @@ public class UsuarioService {
         } else if (nome.length() > 50) {
             throw new RuntimeException("A quantidade de caracteres é maior que limite máximo");
         }
-        if (login.trim().isEmpty()) {
+        if (login == null || login.trim().isEmpty()) {
             throw new RuntimeException("Informe a credencial de login.");
         }
 
-        if (senha.trim().isEmpty()) {
+        if (senha == null || senha.trim().isEmpty()) {
             throw new RuntimeException("Informe a senha.");
         }
 
@@ -28,14 +32,50 @@ public class UsuarioService {
         }
         Usuario usuario = new Usuario();
 
-        usuario.setNome(nome);
-        usuario.setLogin(login);
+        usuario.setNome(nome.trim());
+        usuario.setLogin(login.trim());
         usuario.setSenha(senha);
         usuario.setDataCadastro(LocalDateTime.now());
 
+        usuario.setRecuperacaoSenha(gerarCodigoAleatorio());
+
         usd.cadastrar(usuario);
 
+        String codigoRecuperacao = gerarCodigoUnico();
+
+        usd.atualizarCodigoRecuperacao(
+                usuario.getLogin(),
+                codigoRecuperacao
+        );
+
+        usuario.setRecuperacaoSenha(codigoRecuperacao);
+
         return usuario;
+    }
+
+    private String gerarCodigoUnico() {
+        String codigo;
+
+        do {
+            codigo = gerarCodigoAleatorio();
+        } while (usd.codigoRecuperacaoExiste(codigo));
+
+        return codigo;
+    }
+
+    private String gerarCodigoAleatorio() {
+
+        SecureRandom random = new SecureRandom();
+        StringBuilder codigo = new StringBuilder();
+
+        for (int i = 0; i < 10; i++) {
+            int posicao = random.nextInt(CARACTERES.length());
+            codigo.append(CARACTERES.charAt(posicao));
+
+
+        }
+
+        return codigo.toString();
     }
 
     public class ExcluirUsuarioService {
@@ -51,4 +91,5 @@ public class UsuarioService {
             usuarioDAO.excluir(nome.trim());
         }
     }
+    public class CadastroUsuarioService{}
 }
