@@ -20,7 +20,7 @@ public class VendaDAO {
                     usuario_id,
                     cliente_id,
                     forma_pagamento_id,
-                    status_id_status
+                    status_id
                 ) VALUES (NOW(), ?, ?, ?, ?, ?, ?)
                 """;
 
@@ -95,7 +95,6 @@ public class VendaDAO {
                 stmtItem.setBigDecimal(3, itemVenda.getValorTotal());
                 stmtItem.setInt(4, idVenda);
                 stmtItem.setInt(5, itemVenda.getProdutoIdProduto());
-                stmtItem.setInt(6, idVenda);
 
                 stmtItem.executeUpdate();
 

@@ -15,7 +15,7 @@ public class ProdutoService {
             String descricao,
             String valorCustoTexto,
             String valorVendaTexto,
-            String estoqueTexto
+            Integer estoqueTexto
     ) {
 
         if (nome == null || nome.trim().isEmpty()) {
@@ -24,12 +24,11 @@ public class ProdutoService {
 
         BigDecimal valorCusto;
         BigDecimal valorVenda;
-        int estoque;
+        Integer estoque = 0;
 
         try {
             valorCusto = new BigDecimal(valorCustoTexto);
             valorVenda = new BigDecimal(valorVendaTexto);
-            estoque = Integer.parseInt(estoqueTexto);
         } catch (NumberFormatException erro) {
             throw new RuntimeException("Informe valores válidos para custo, venda e estoque.");
         }
@@ -42,8 +41,8 @@ public class ProdutoService {
             throw new RuntimeException("O valor de venda deve ser maior que zero.");
         }
 
-        if (estoque < 0) {
-            throw new RuntimeException("O estoque não pode ser negativo.");
+        if (estoque == null || estoque <0) {
+            throw new RuntimeException("O estoque não pode ser negativo ou nulo.");
         }
 
         Produto produto = new Produto();

@@ -14,7 +14,7 @@ public class ProdutoController {
             String descricao,
             String valorCusto,
             String valorVenda,
-            String estoque
+            Integer estoque
     ) {
         produtoService.cadastrarProduto(nome, descricao, valorCusto, valorVenda, estoque);
     }
