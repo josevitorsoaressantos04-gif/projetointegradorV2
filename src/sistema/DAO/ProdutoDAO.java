@@ -75,7 +75,7 @@ public class ProdutoDAO {
         String sql = """
                 SELECT id, nome, descricao, valor_custo, valor_venda, estoque
                 FROM produto
-                WHERE id_produto = ?
+                WHERE id = ?
                 """;
 
         try (
