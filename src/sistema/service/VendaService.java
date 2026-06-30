@@ -88,27 +88,6 @@ public class VendaService {
         }
     }
 
-    public void excluirVenda(String idTexto) {
-
-        if (idTexto == null || idTexto.trim().isEmpty()) {
-            throw new RuntimeException("Informe o ID da venda para exclusão.");
-        }
-
-        int idVenda;
-
-        try {
-            idVenda = Integer.parseInt(idTexto);
-        } catch (NumberFormatException erro) {
-            throw new RuntimeException("O ID da venda deve ser um número válido.");
-        }
-
-        if (idVenda <= 0) {
-            throw new RuntimeException("Informe um ID válido.");
-        }
-
-        vendaDAO.excluirVenda(idVenda);
-    }
-
     private void validarDadosVenda(
             int idCliente,
             int idProduto,

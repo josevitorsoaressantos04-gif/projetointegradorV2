@@ -9,9 +9,9 @@ public class StatusService {
 
     private StatusDAO statusDAO = new StatusDAO();
 
-    public void cadastrarStatus(String descricao) {
+    public void cadastrarStatus(String idStatusTexto, String descricao) {
 
-       // int idStatus = converterInteiro(idStatusTexto, "status");
+        int idStatus = converterInteiro(idStatusTexto, "status");
 
         if (descricao == null || descricao.trim().isEmpty()) {
             throw new RuntimeException("Informe a descrição do status.");
@@ -22,6 +22,7 @@ public class StatusService {
         }
 
         Status status = new Status();
+        status.setIdStatus(idStatus);
         status.setDescricao(descricao.trim());
 
         statusDAO.inserir(status);

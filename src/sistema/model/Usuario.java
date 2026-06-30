@@ -17,4 +17,5 @@ public class Usuario {
     private String senha;
     private String recuperacaoSenha;
     private LocalDateTime dataCadastro;
+    private String recuperacaoSenha;
 }

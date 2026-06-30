@@ -1,6 +1,9 @@
 package sistema.DAO;
+
 import sistema.conexao.ConexaoBanco;
 import sistema.model.Cliente;
+import sistema.model.Venda;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,7 +29,7 @@ public class ClienteDAO {
                 Connection conexao = ConexaoBanco.conectar()
         ) {
             assert conexao != null;
-            try (PreparedStatement stmt =  conexao.prepareStatement(sql)
+            try (PreparedStatement stmt = conexao.prepareStatement(sql)
             ) {
 
                 stmt.setString(1, cliente.getNome());
@@ -44,7 +47,7 @@ public class ClienteDAO {
         }
     }
 
-    public void atualizarCliente( Cliente cliente) {
+    public void atualizarCliente(Cliente cliente) {
 
         String sql = """
                 UPDATE cliente
@@ -52,7 +55,7 @@ public class ClienteDAO {
                     cpf_cnpj = ?,
                     telefone = ?,
                     email = ?
-                WHERE id = ?
+                WHERE id_cliente = ?
                 """;
 
         try (
@@ -79,7 +82,7 @@ public class ClienteDAO {
 
         String sql = """
                 DELETE FROM cliente
-                WHERE id = ?
+                WHERE id_cliente = ?
                 """;
 
         try (
@@ -96,44 +99,69 @@ public class ClienteDAO {
             throw new RuntimeException("Erro ao excluir cliente: " + erro.getMessage());
         }
     }
-        public List<Cliente> listar() {
 
-            String sql = """
-            SELECT 
-                id,
-                nome,
-                cpf_cnpj,
-                telefone,
-                email
-            FROM cliente
-            ORDER BY nome ASC
-            """;
+    public List<Cliente> listar() {
 
-            List<Cliente> clientes = new ArrayList<>();
+        String sql = """
+                SELECT 
+                    id_cliente,
+                    nome,
+                    cpf_cnpj,
+                    telefone,
+                    email
+                FROM cliente
+                ORDER BY nome ASC
+                """;
 
-            try (
-                    Connection conexao = ConexaoBanco.conectar();
-                    PreparedStatement stmt = conexao.prepareStatement(sql);
-                    ResultSet resultado = stmt.executeQuery()
-            ) {
+        List<Cliente> clientes = new ArrayList<>();
 
-                while (resultado.next()) {
+        try (
+                Connection conexao = ConexaoBanco.conectar();
+                PreparedStatement stmt = conexao.prepareStatement(sql);
+                ResultSet resultado = stmt.executeQuery()
+        ) {
 
-                    Cliente cliente = new Cliente();
+            while (resultado.next()) {
 
-                    cliente.setIdCliente(resultado.getInt("id"));
-                    cliente.setNome(resultado.getString("nome"));
-                    cliente.setCpfCnpj(resultado.getString("cpf_cnpj"));
-                    cliente.setTelefone(resultado.getString("telefone"));
-                    cliente.setEmail(resultado.getString("email"));
+                Cliente cliente = new Cliente();
 
-                    clientes.add(cliente);
-                }
+                cliente.setIdCliente(resultado.getInt("id_cliente"));
+                cliente.setNome(resultado.getString("nome"));
+                cliente.setCpfCnpj(resultado.getString("cpf_cnpj"));
+                cliente.setTelefone(resultado.getString("telefone"));
+                cliente.setEmail(resultado.getString("email"));
 
-            } catch (SQLException erro) {
-                throw new RuntimeException("Erro ao listar clientes: " + erro.getMessage());
+                clientes.add(cliente);
             }
 
-            return clientes;
+        } catch (SQLException erro) {
+            throw new RuntimeException("Erro ao listar clientes: " + erro.getMessage());
+        }
+
+        return clientes;
+    }
+
+    public boolean vrClienteVenda(int idCliente) {
+
+        String sql = """
+            SELECT id_venda
+            FROM venda
+            WHERE cliente_id_cliente = ?
+            LIMIT 1
+            """;
+
+        try (
+                Connection conexao = ConexaoBanco.conectar();
+                PreparedStatement stmt = conexao.prepareStatement(sql)
+        ) {
+            stmt.setInt(1, idCliente);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                return rs.next();
+            }
+
+        } catch (SQLException erro) {
+            throw new RuntimeException("Erro ao verificar vínculo do cliente com venda: " + erro.getMessage());
         }
     }
+}
