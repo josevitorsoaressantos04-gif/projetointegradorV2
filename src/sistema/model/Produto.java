@@ -17,5 +17,4 @@ public class Produto {
     private BigDecimal valorCusto;
     private BigDecimal valorVenda;
     private int estoque;
-
 }

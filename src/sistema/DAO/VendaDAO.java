@@ -17,10 +17,10 @@ public class VendaDAO {
                     data_venda,
                     valor_total,
                     desconto,
-                    usuario_id_usuario,
-                    cliente_id_cliente,
-                    forma_pagamento_id_pagamento,
-                    status_id_status
+                    usuario_id,
+                    cliente_id,
+                    forma_pagamento_id,
+                    status_id
                 ) VALUES (NOW(), ?, ?, ?, ?, ?, ?)
                 """;
 
@@ -29,16 +29,15 @@ public class VendaDAO {
                     quantidade,
                     valor_unitario,
                     valor_total,
-                    venda_id_venda,
-                    produto_id_produto,
-                    venda_id_venda1
-                ) VALUES (?, ?, ?, ?, ?, ?)
+                    venda_id,
+                    produto_id
+                ) VALUES (?, ?, ?, ?, ? )
                 """;
 
         String sqlBaixarEstoque = """
                 UPDATE produto
                 SET estoque = estoque - ?
-                WHERE id_produto = ?
+                WHERE id = ?
                 AND estoque >= ?
                 """;
 
@@ -47,9 +46,9 @@ public class VendaDAO {
                     quantidade,
                     data_movimento,
                     observacao,
-                    produto_id_produto,
-                    usuario_id_usuario,
-                    tipo_movimento_id_movimento
+                    produto_id,
+                    usuario_id,
+                    tipo_movimento_id
                 ) VALUES (?, NOW(), ?, ?, ?, ?)
                 """;
 
@@ -96,7 +95,6 @@ public class VendaDAO {
                 stmtItem.setBigDecimal(3, itemVenda.getValorTotal());
                 stmtItem.setInt(4, idVenda);
                 stmtItem.setInt(5, itemVenda.getProdutoIdProduto());
-                stmtItem.setInt(6, idVenda);
 
                 stmtItem.executeUpdate();
 
@@ -124,11 +122,15 @@ public class VendaDAO {
 
     public List<Venda> listar() {
         String sql = """
-                SELECT id_venda, data_venda, valor_total, desconto,
-                       usuario_id_usuario, cliente_id_cliente,
-                       forma_pagamento_id_pagamento, status_id_status
-                FROM venda
-                ORDER BY data_venda DESC
+                SELECT v.id, v.data_venda, v.valor_total, v.desconto, v.cliente_id, v.forma_pagamento_id, v.status_id,
+                       c.nome AS nome_cliente,
+                       f.descricao AS descricao_pagamento,
+                       s.descricao AS descricao_status
+                FROM venda v
+                INNER JOIN cliente c ON v.cliente_id = c.id
+                INNER JOIN forma_pagamento f ON v.forma_pagamento_id = f.id
+                INNER JOIN status s ON v.status_id = s.id
+                ORDER BY v.data_venda DESC
                 """;
 
         List<Venda> vendas = new ArrayList<>();
@@ -141,7 +143,7 @@ public class VendaDAO {
             while (rs.next()) {
                 Venda venda = new Venda();
 
-                venda.setIdVenda(rs.getInt("id_venda"));
+                venda.setIdVenda(rs.getInt("id"));
 
                 if (rs.getTimestamp("data_venda") != null) {
                     venda.setDataVenda(rs.getTimestamp("data_venda").toLocalDateTime());
@@ -149,10 +151,12 @@ public class VendaDAO {
 
                 venda.setValorTotal(rs.getBigDecimal("valor_total"));
                 venda.setDesconto(rs.getBigDecimal("desconto"));
-                venda.setUsuarioIdUsuario(rs.getInt("usuario_id_usuario"));
-                venda.setClienteIdCliente(rs.getInt("cliente_id_cliente"));
-                venda.setFormaPagamentoIdPagamento(rs.getInt("forma_pagamento_id_pagamento"));
-                venda.setStatusIdStatus(rs.getInt("status_id_status"));
+                venda.setClienteIdCliente(rs.getInt("cliente_id"));
+                venda.setFormaPagamentoIdPagamento(rs.getInt("forma_pagamento_id"));
+                venda.setStatusIdStatus(rs.getInt("status_id"));
+                venda.setNomeCliente(rs.getString("nome_cliente"));
+                venda.setDescricaoPagamento(rs.getString("descricao_pagamento"));
+                venda.setDescricaoStatus(rs.getString("descricao_status"));
 
                 vendas.add(venda);
             }
@@ -162,5 +166,26 @@ public class VendaDAO {
         }
 
         return vendas;
+    }
+    public void excluirVenda(int idVenda) {
+
+        String sql = """
+                DELETE FROM venda
+                WHERE id = ?
+                """;
+
+        try (
+                Connection conexao = ConexaoBanco.conectar();
+                PreparedStatement stmt = conexao.prepareStatement(sql)
+        ) {
+
+            stmt.setInt(1, idVenda);
+            stmt.executeUpdate();
+
+            System.out.println("Cliente excluído com sucesso!");
+
+        } catch (SQLException erro) {
+            throw new RuntimeException("Erro ao excluir venda: " + erro.getMessage());
+        }
     }
 }

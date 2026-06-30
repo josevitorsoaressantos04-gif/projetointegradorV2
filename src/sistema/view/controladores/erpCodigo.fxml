@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="212.0" prefWidth="372.0" style="-fx-background-color: #303030;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sistema.view.controladores.Controller">
+   <children>
+      <Label layoutX="9.0" layoutY="44.0" prefHeight="34.0" prefWidth="354.0" text="Seu código de recuperação foi gerado com sucesso!" textFill="#ff6600">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <TextField fx:id="recuperacaoCodigoGerado" editable="false" layoutX="32.0" layoutY="106.0" prefHeight="32.0" prefWidth="308.0" promptText="CÓDIGO" style="-fx-alignment: center; -fx-text-fill: #ff6600; -fx-background-color: #292929; -fx-border-color: #ff6600;">
+         <font>
+            <Font name="System Bold Italic" size="14.0" />
+         </font>
+      </TextField>
+   </children>
+</AnchorPane>

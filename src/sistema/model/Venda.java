@@ -21,4 +21,8 @@ public class Venda {
     private int clienteIdCliente;
     private int formaPagamentoIdPagamento;
     private int statusIdStatus;
+
+    private String nomeCliente;
+    private String descricaoPagamento;
+    private String descricaoStatus;
 }

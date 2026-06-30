@@ -15,8 +15,8 @@ public class ClienteService {
             throw new RuntimeException("Informe o nome da pessoa.");
         }
 
-        if (nome.length() > 100) {
-            throw new RuntimeException("O nome ultrapassou o limite máximo de caracteres.");
+        if (nome.length() > 200) {
+            throw new RuntimeException("O nome ultrapassou o limite máximo de 200 caracteres.");
         }
 
         Cliente cliente = new Cliente();
@@ -48,6 +48,10 @@ public class ClienteService {
 
         if (idCliente <= 0) {
             throw new RuntimeException("Informe um ID válido.");
+        }
+
+        if (validarVinculoCliente(idCliente)) {
+            throw new RuntimeException("Não é possível excluir este cliente, pois ele possui venda vinculada.");
         }
 
         clienteDAO.excluirCliente(idCliente);
@@ -88,5 +92,9 @@ public class ClienteService {
         cliente.setEmail(email);
 
         clienteDAO.atualizarCliente(cliente);
+    }
+
+    public boolean validarVinculoCliente(int idCliente) {
+        return clienteDAO.vrClienteVenda(idCliente);
     }
 }
