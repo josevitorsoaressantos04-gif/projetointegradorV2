@@ -19,6 +19,7 @@ public class VendaService {
             String valorUnitarioTexto,
             String descontoTexto,
             String idFormaPagamentoTexto,
+            String idStatusTexto,
             Usuario usuarioLogado
     ) {
         if (usuarioLogado == null) {
@@ -29,6 +30,7 @@ public class VendaService {
         int idProduto = converterInteiro(idProdutoTexto, "produto");
         int quantidade = converterInteiro(quantidadeTexto, "quantidade");
         int idFormaPagamento = converterInteiro(idFormaPagamentoTexto, "forma de pagamento");
+        int idStatus = converterInteiro(idStatusTexto, "status");
 
         BigDecimal valorUnitario = converterDecimal(valorUnitarioTexto, "valor unitário");
         BigDecimal desconto = converterDecimalOpcional(descontoTexto);
@@ -38,6 +40,7 @@ public class VendaService {
                 idProduto,
                 quantidade,
                 idFormaPagamento,
+                idStatus,
                 valorUnitario,
                 desconto
         );
@@ -55,13 +58,13 @@ public class VendaService {
         venda.setUsuarioIdUsuario(usuarioLogado.getIdUsuario());
         venda.setClienteIdCliente(idCliente);
         venda.setFormaPagamentoIdPagamento(idFormaPagamento);
+        venda.setStatusIdStatus(idStatus);
+
 
         /*
          * Status 1 = Finalizada
          * Ajuste esse ID se no seu banco o status finalizado tiver outro código.
          */
-        venda.setStatusIdStatus(1);
-
         ItemVenda itemVenda = new ItemVenda();
         itemVenda.setProdutoIdProduto(idProduto);
         itemVenda.setQuantidade(quantidade);
@@ -85,11 +88,33 @@ public class VendaService {
         }
     }
 
+    public void excluirVenda(String idTexto) {
+
+        if (idTexto == null || idTexto.trim().isEmpty()) {
+            throw new RuntimeException("Informe o ID da venda para exclusão.");
+        }
+
+        int idVenda;
+
+        try {
+            idVenda = Integer.parseInt(idTexto);
+        } catch (NumberFormatException erro) {
+            throw new RuntimeException("O ID da venda deve ser um número válido.");
+        }
+
+        if (idVenda <= 0) {
+            throw new RuntimeException("Informe um ID válido.");
+        }
+
+        vendaDAO.excluirVenda(idVenda);
+    }
+
     private void validarDadosVenda(
             int idCliente,
             int idProduto,
             int quantidade,
             int idFormaPagamento,
+            int idStatus,
             BigDecimal valorUnitario,
             BigDecimal desconto
     ) {
@@ -107,6 +132,10 @@ public class VendaService {
 
         if (idFormaPagamento <= 0) {
             throw new RuntimeException("Informe uma forma de pagamento válida.");
+        }
+
+        if (idStatus <0){
+            throw new RuntimeException("Informe um status de venda válido.");
         }
 
         if (valorUnitario == null || valorUnitario.compareTo(BigDecimal.ZERO) <= 0) {

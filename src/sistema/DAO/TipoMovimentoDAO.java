@@ -30,9 +30,9 @@ public class TipoMovimentoDAO {
 
     public List<TipoMovimento> listar() {
         String sql = """
-                SELECT id_movimento, descricao
+                SELECT id, descricao
                 FROM tipo_movimento
-                ORDER BY id_movimento
+                ORDER BY id
                 """;
 
         List<TipoMovimento> tipos = new ArrayList<>();

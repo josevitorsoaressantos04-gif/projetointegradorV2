@@ -17,6 +17,7 @@ public class VendaController {
             String valorUnitario,
             String desconto,
             String idFormaPagamento,
+            String idStatus,
             Usuario usuarioLogado
     ) {
         return vendaService.registrarVenda(
@@ -26,11 +27,10 @@ public class VendaController {
                 valorUnitario,
                 desconto,
                 idFormaPagamento,
+                idStatus,
                 usuarioLogado
         );
     }
-
-    public List<Venda> listarVendas() {
-        return vendaService.listarVendas();
-    }
+    public List<Venda> listarVendas() {return vendaService.listarVendas();}
+    public void excluirVenda(String idTexto){vendaService.excluirVenda(idTexto);}
 }

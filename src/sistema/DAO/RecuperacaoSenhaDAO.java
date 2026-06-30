@@ -12,7 +12,7 @@ public class RecuperacaoSenhaDAO {
     public boolean loginExiste(String login) {
 
         String sql = """
-                SELECT id_usuario
+                SELECT id
                 FROM usuario
                 WHERE login = ?
                 """;
@@ -35,7 +35,7 @@ public class RecuperacaoSenhaDAO {
     public boolean codigoExiste(String codigo) {
 
         String sql = """
-                SELECT id_usuario
+                SELECT id
                 FROM usuario
                 WHERE recuperacaoSenha = ?
                 """;
@@ -84,7 +84,7 @@ public class RecuperacaoSenhaDAO {
     public boolean validarCodigo(String codigo) {
 
         String sql = """
-                SELECT id_usuario
+                SELECT id
                 FROM usuario
                 WHERE recuperacaoSenha = ?
                 """;

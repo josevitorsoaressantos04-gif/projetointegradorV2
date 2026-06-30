@@ -17,35 +17,29 @@ public class RecuperacaoSenhaService {
             throw new RuntimeException("Informe o login do usuário.");
         }
 
-        /*
-         * Sempre gera um código, independentemente do login existir.
-         */
-        String codigoExibido = gerarCodigoAleatorio();
+        String loginTratado = login.trim();
 
-        /*
-         * Se o login existir, gera um código único real e salva no banco.
-         */
         if (recuperacaoSenhaDAO.loginExiste(login.trim())) {
-
             String codigoReal;
 
             do {
                 codigoReal = gerarCodigoAleatorio();
             } while (recuperacaoSenhaDAO.codigoExiste(codigoReal));
-
-            recuperacaoSenhaDAO.salvarCodigoRecuperacao(
-                    login.trim(),
-                    codigoReal
-            );
+            recuperacaoSenhaDAO.salvarCodigoRecuperacao(loginTratado, codigoReal);
 
             return codigoReal;
         }
+        return gerarCodigoAleatorio();
 
-        /*
-         * Se o login não existir, retorna um código falso.
-         * O usuário/invasor não consegue diferenciar pelo comportamento da tela.
-         */
-        return codigoExibido;
+        /*String codigo;
+
+        do {
+            codigo = gerarCodigoAleatorio();
+        } while (recuperacaoSenhaDAO.codigoExiste(codigo));
+
+        recuperacaoSenhaDAO.salvarCodigoRecuperacao(login.trim(), codigo);
+
+        return codigoExibido;*/
     }
 
     public void alterarSenhaComCodigo(
@@ -53,7 +47,6 @@ public class RecuperacaoSenhaService {
             String novaSenha,
             String confirmarSenha
     ) {
-
         if (codigoRecuperacao == null || codigoRecuperacao.trim().isEmpty()) {
             throw new RuntimeException("Informe o código de recuperação.");
         }

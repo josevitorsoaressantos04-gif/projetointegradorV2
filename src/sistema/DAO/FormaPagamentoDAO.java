@@ -30,9 +30,9 @@ public class FormaPagamentoDAO {
 
     public List<FormaPagamento> listar() {
         String sql = """
-                SELECT id_pagamento, descricao
+                SELECT id, descricao
                 FROM forma_pagamento
-                ORDER BY descricao
+                ORDER BY id
                 """;
 
         List<FormaPagamento> formas = new ArrayList<>();
@@ -45,7 +45,7 @@ public class FormaPagamentoDAO {
             while (rs.next()) {
                 FormaPagamento forma = new FormaPagamento();
 
-                forma.setIdPagamento(rs.getInt("id_pagamento"));
+                forma.setIdPagamento(rs.getInt("id"));
                 forma.setDescricao(rs.getString("descricao"));
 
                 formas.add(forma);

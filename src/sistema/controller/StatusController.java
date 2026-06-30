@@ -9,8 +9,8 @@ public class StatusController {
 
     private StatusService statusService = new StatusService();
 
-    public void cadastrarStatus(String idStatus, String descricao) {
-        statusService.cadastrarStatus(idStatus, descricao);
+    public void cadastrarStatus(String descricao) {
+        statusService.cadastrarStatus(descricao);
     }
 
     public List<Status> listarStatus() {

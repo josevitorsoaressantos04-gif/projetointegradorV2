@@ -16,7 +16,7 @@
          <children>
             <HBox prefHeight="25.0" prefWidth="293.0">
                <children>
-                  <TextField prefHeight="25.0" prefWidth="211.0" promptText="Login" style="-fx-background-radius: 15 3 15 3;">
+                  <TextField fx:id="recuperacaoLogin" prefHeight="25.0" prefWidth="211.0" promptText="Login" style="-fx-background-radius: 15 3 15 3;">
                      <HBox.margin>
                         <Insets bottom="5.0" />
                      </HBox.margin>
@@ -24,7 +24,7 @@
                         <InnerShadow choke="0.1" height="15.54" radius="8.635" />
                      </effect>
                   </TextField>
-                  <Button mnemonicParsing="false" onAction="#gerarCodigoRecuperacao" prefHeight="25.0" prefWidth="147.0" style="-fx-background-radius: 30; -fx-background-color: #ff6600;" text="Verificar">
+                  <Button mnemonicParsing="false" onAction="#mostrarCodigoRecuperacao" prefHeight="25.0" prefWidth="147.0" style="-fx-background-radius: 30; -fx-background-color: #ff6600;" text="Verificar">
                      <HBox.margin>
                         <Insets bottom="5.0" />
                      </HBox.margin>
@@ -37,7 +37,7 @@
                   </Button>
                </children>
             </HBox>
-            <TextField promptText="Código de confirmação" style="-fx-background-radius: 15 3 15 3;">
+            <TextField fx:id="recuperacaoCodigo" promptText="Código de confirmação" style="-fx-background-radius: 15 3 15 3;">
                <VBox.margin>
                   <Insets bottom="5.0" />
                </VBox.margin>
@@ -45,7 +45,7 @@
                   <InnerShadow choke="0.1" height="15.54" radius="8.635" />
                </effect>
             </TextField>
-            <TextField promptText="Nova senha" style="-fx-background-radius: 15 3 15 3;">
+            <TextField fx:id="recuperacaoNovaSenha" promptText="Nova senha" style="-fx-background-radius: 15 3 15 3;">
                <VBox.margin>
                   <Insets bottom="5.0" />
                </VBox.margin>
@@ -53,7 +53,7 @@
                   <InnerShadow choke="0.1" height="15.54" radius="8.635" />
                </effect>
             </TextField>
-            <TextField promptText="Repetir senha" style="-fx-background-radius: 15 3 15 3;">
+            <TextField fx:id="recuperacaoConfirmaSenha" promptText="Repetir senha" style="-fx-background-radius: 15 3 15 3;">
                <VBox.margin>
                   <Insets bottom="5.0" />
                </VBox.margin>
@@ -63,7 +63,7 @@
             </TextField>
             <HBox alignment="TOP_CENTER" prefHeight="76.0" prefWidth="287.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" style="-fx-background-radius: 30; -fx-background-color: #ff6600;" text="Salvar Senha">
+                  <Button mnemonicParsing="false" onAction="#salvarRecuperacao" prefHeight="25.0" prefWidth="94.0" style="-fx-background-radius: 30; -fx-background-color: #ff6600;" text="Salvar Senha">
                      <HBox.margin>
                         <Insets right="20.0" top="5.0" />
                      </HBox.margin>
@@ -74,7 +74,7 @@
                         <InnerShadow choke="0.26" height="9.27" radius="5.6025" width="15.14" />
                      </effect>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="91.0" style="-fx-background-radius: 30; -fx-background-color: #ff6600;" text="Limpar">
+                  <Button mnemonicParsing="false" onAction="#limparCamposRecuperacao" prefHeight="25.0" prefWidth="91.0" style="-fx-background-radius: 30; -fx-background-color: #ff6600;" text="Limpar">
                      <HBox.margin>
                         <Insets top="5.0" />
                      </HBox.margin>
@@ -89,7 +89,6 @@
             </HBox>
          </children>
       </VBox>
-      <Text fill="#ff6600" layoutX="122.0" layoutY="276.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Retornar para Login" />
-      <Button layoutX="123.0" layoutY="259.0" mnemonicParsing="false" onAction="#mudarParaLogin" opacity="0.0" prefHeight="25.0" prefWidth="105.0" />
+      <Text fx:id="textoMudanca" fill="#ff6600" layoutX="122.0" layoutY="276.0" onMouseClicked="#mudarParaLogin" strokeType="OUTSIDE" strokeWidth="0.0" text="Retornar para Login" />
    </children>
 </AnchorPane>

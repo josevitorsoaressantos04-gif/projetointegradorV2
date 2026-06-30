@@ -10,7 +10,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class UsuarioDAO {
 
     public void cadastrar(Usuario usuario) {
@@ -47,7 +46,7 @@ public class UsuarioDAO {
 
         String sql = """
                 SELECT
-                    id_usuario,
+                    id,
                     nome,
                     login,
                     senha,
@@ -67,7 +66,7 @@ public class UsuarioDAO {
 
                 Usuario usuario = new Usuario();
 
-                usuario.setIdUsuario(resultado.getInt("id_usuario"));
+                usuario.setIdUsuario(resultado.getInt("id"));
                 usuario.setNome(resultado.getString("nome"));
                 usuario.setLogin(resultado.getString("login"));
                 usuario.setSenha(resultado.getString("senha"));
@@ -87,7 +86,7 @@ public class UsuarioDAO {
 
         String sql = """
                 SELECT
-                    id_usuario,
+                    id,
                     nome,
                     login,
                     senha,
@@ -109,7 +108,7 @@ public class UsuarioDAO {
                 if (resultado.next()) {
                     Usuario usuario = new Usuario();
 
-                    usuario.setIdUsuario(resultado.getInt("id_usuario"));
+                    usuario.setIdUsuario(resultado.getInt("id"));
                     usuario.setNome(resultado.getString("nome"));
                     usuario.setLogin(resultado.getString("login"));
                     usuario.setSenha(resultado.getString("senha"));
@@ -131,7 +130,7 @@ public class UsuarioDAO {
         String sql = """
                 UPDATE usuario
                 SET senha = ?
-                WHERE id_usuario = ?
+                WHERE id = ?
                 """;
 
         try (
@@ -212,13 +211,5 @@ public class UsuarioDAO {
         } catch (SQLException erro) {
             throw new RuntimeException("Erro ao atualizar código de recuperação: " + erro.getMessage());
         }
-    }
-
-    public void editarNomeUsuario(String idUsuario){
-       String sqlMudarNome = """
-    update usuario
-    set nome = ?
-    where idUsuario = ?
-    """;
     }
 }
